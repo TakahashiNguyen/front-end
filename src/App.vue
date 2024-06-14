@@ -1,10 +1,16 @@
-<script setup lang="ts">
-	import HelloWorld from './components/HelloWorld.vue';
-	import BootstrapTest from './components/BootstrapTest.vue'
-</script>
+<script setup lang="ts"></script>
 
 <template>
-	<BootstrapTest />
+	
+
+	<nav>
+		<RouterLink to="/">Go to Home</RouterLink>
+		<RouterLink to="/about">Go to About</RouterLink>
+	</nav>
+
+	<main>
+		<RouterView />
+	</main>
 </template>
 
 <style scoped></style>
