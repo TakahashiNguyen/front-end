@@ -1,4 +1,5 @@
 <script lang="ts">
+	import './ts/main';
 	import { ref } from 'vue';
 	import { Howl } from 'howler';
 	import { fade } from './ts/Animation';
@@ -31,11 +32,12 @@
 		//getElementById('nameSub').classList.add(`font-['${luckyFont}']`);
 
 		//window.isStartupSoundStarted = 0;
+		let playSrc: string;
 		const startupSound = new Howl({
-			src: wavURLs.map(name => `./.ogg/${name}.ogg`).random(),
+			src: playSrc,
 			volume: 1,
 			onplay: () => {
-				fade(loadingPage, startupSound._duration * 990, 1, 0, 144, () => {
+				fade(loadingPage, startupSound.duration(), 1, 0, 144, () => {
 					loadingPage.classList.add('hidden');
 				});
 			},
