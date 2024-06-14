@@ -7,5 +7,9 @@
 	"printWidth": 140,
 	"bracketSameLine": true,
 	"singleAttributePerLine": false,
-	"trailingComma": "all"
+	"trailingComma": "all",
+	"endOfLine": "lf",
+	"vueIndentScriptAndStyle": true,
+	"htmlWhitespaceSensitivity": "strict",
+	"bracketSpacing": true
 }
