@@ -1,8 +1,6 @@
 <script setup lang="ts"></script>
 
 <template>
-	
-
 	<nav>
 		<RouterLink to="/">Go to Home</RouterLink>
 		<RouterLink to="/about">Go to About</RouterLink>
@@ -13,4 +11,4 @@
 	</main>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss"></style>
