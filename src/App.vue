@@ -1,21 +1,83 @@
 <script lang="ts">
 	import { ref } from 'vue';
+	import { Howl } from 'howler';
+	import { fade } from './ts/Animation';
 
-	const isDarkMode = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+	const isDarkMode = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
+		toggleDarkMode = () => {
+			isDarkMode.value = !isDarkMode.value;
+			document.querySelector('html')?.setAttribute('class', 'dark');
+		},
+		loadingPage = 'loadingPage'.getElement();
+
+	window.addEventListener('DOMContentLoaded', async () => {
+		//textResize();
+
+		let luckyFont = [
+			'Peristiwa',
+			'Chromate',
+			'attena',
+			'TimberWolf',
+			'Gerlomi',
+			'Amoitar',
+			'Sigokae',
+			'Ginger',
+			'WylieVoigen',
+			'Magnificent',
+			'Karasha',
+			'sofia',
+		].random();
+		//getElementById('name').classList.add(`font-['${luckyFont}']`);
+		//getElementById('nameSub').classList.add(`font-['${luckyFont}']`);
+
+		//window.isStartupSoundStarted = 0;
+		const startupSound = new Howl({
+			src: wavURLs.map(name => `./.ogg/${name}.ogg`).random(),
+			volume: 1,
+			onplay: () => {
+				fade(loadingPage, startupSound._duration * 990, 1, 0, 144, () => {
+					loadingPage.classList.add('hidden');
+				});
+			},
+			onplayerror: function () {
+				startupSound.once('unlock', function () {
+					startupSound.play();
+				});
+			},
+			autoplay: true,
+		});
+
+		startupSound.play();
+	});
 
 	export default {
 		setup() {
-			const toggleDarkMode = () => {
-				isDarkMode.value = !isDarkMode.value;
-				document.querySelector('html')?.setAttribute('data-bs-theme', isDarkMode.value ? 'dark' : 'light');
-			};
-
 			return { toggleDarkMode };
 		},
 	};
 </script>
 
 <template>
+	<!--Loading page section-->
+	<div
+		class="absolute z-[100] h-dvh w-full bg-white dark:bg-black cursor-pointer flex middle-div pointer-events-none"
+		ref="loadingPage"
+		style="opacity: 1">
+		<picture class="flex middle-div full">
+			<img
+				src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Penguin.png"
+				width="18%"
+				height="18%"
+				class="middle-div dObject-dark" />
+			<img
+				alt=""
+				src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Cat%20Face.png"
+				width="18%"
+				height="18%"
+				class="middle-div dObject" />
+		</picture>
+	</div>
+
 	<nav>
 		<RouterLink to="/">Go to Home</RouterLink>
 		<RouterLink to="/about">Go to About</RouterLink>
