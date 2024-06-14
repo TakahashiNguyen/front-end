@@ -1,9 +1,10 @@
 <script setup lang="ts">
 	import HelloWorld from './components/HelloWorld.vue';
+	import BootstrapTest from './components/BootstrapTest.vue'
 </script>
 
 <template>
-	<HelloWorld msg="Vite + Vue" />
+	<BootstrapTest />
 </template>
 
 <style scoped></style>
