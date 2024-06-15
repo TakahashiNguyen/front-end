@@ -20,6 +20,7 @@
 	import loadingPane from './components/core/loadingPane.vue';
 	import { ref } from 'vue';
 	import SpotifyCurrentSong from './components/core/spotifyCurrentSong.vue';
+	import GithubButton from './components/core/githubButton.vue';
 
 	const isDarkMode = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
 		isSystemDark = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
@@ -30,13 +31,13 @@
 		};
 
 	export default {
-		name: 'main',
 		setup() {
 			return { toggleDarkMode, isSystemDark };
 		},
 		components: {
 			loadingPane,
 			SpotifyCurrentSong,
+			GithubButton,
 		},
 	};
 </script>
@@ -46,6 +47,7 @@
 
 	<div class="h-screen relative w-full">
 		<SpotifyCurrentSong />
+		<GithubButton />
 		<img
 			class="fixed -z-40 full scale-[1.4] animate-slide touch-none object-cover blur-sm lg:scale-[1.1] lg:animate-none lg:object-contain lg:blur"
 			id="myImg"
