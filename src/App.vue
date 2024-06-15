@@ -19,6 +19,7 @@
 
 	import loadingPane from './components/core/loadingPane.vue';
 	import { ref } from 'vue';
+	import SpotifyCurrentSong from './components/core/spotifyCurrentSong.vue';
 
 	const isDarkMode = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
 		isSystemDark = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
@@ -35,6 +36,7 @@
 		},
 		components: {
 			loadingPane,
+			SpotifyCurrentSong,
 		},
 	};
 </script>
@@ -42,12 +44,22 @@
 <template>
 	<loadingPane />
 
+	<div class="h-screen relative w-full">
+		<SpotifyCurrentSong />
+		<img
+			class="fixed -z-40 full scale-[1.4] animate-slide touch-none object-cover blur-sm lg:scale-[1.1] lg:animate-none lg:object-contain lg:blur"
+			id="myImg"
+			title="myImg"
+			crossorigin="anonymous"
+			onload="changeTextColor()" />
+	</div>
+
 	<nav>
 		<RouterLink to="/">Go to Home</RouterLink>
 		<RouterLink to="/about">Go to About</RouterLink>
 
 		<!--
-			Toggle dark mode
+			Toggle dark mode button
 		-->
 		<label class="ds-swap ds-swap-rotate">
 			<input type="checkbox" class="ds-theme-controller" value="synthwave" @click="toggleDarkMode" />

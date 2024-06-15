@@ -50,7 +50,7 @@
 	};
 </script>
 <template>
-	<div class="absolute cursor-pointer z-[100] bg-white dark:bg-black w-dvw h-dvh" id="loadingPage">
+	<div class="fixed cursor-pointer z-[100] bg-white dark:bg-black h-lvh w-full" id="loadingPage">
 		<div class="absolute flex square" style="opacity: 1">
 			<picture class="flex middle-div full">
 				<img

@@ -41,7 +41,7 @@
 .square {
 	width: calc(min(100vw, 100vh));
 	height: calc(min(100vw, 100vh));
-	top: 50%; /* Center vertically */
-	left: 50%; /* Center horizontally */
+	top: 50%;
+	left: 50%;
 	transform: translate(-50%, -50%);
 }
