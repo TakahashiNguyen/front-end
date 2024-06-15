@@ -2,14 +2,15 @@
 	// Custom function for types
 	declare global {
 		interface Array<T> {
-			random(): Array<T>;
+			random(ifContain?: string): Array<T>;
 		}
 		interface String {
 			getElement(): HTMLElement;
 		}
 	}
 
-	Array.prototype.random = function () {
+	Array.prototype.random = function (ifContain?: string) {
+		if (ifContain) this.filter((i: string) => i.toLowerCase().includes(ifContain.toLowerCase()));
 		return this[Math.floor(Math.random() * this.length)];
 	};
 	String.prototype.getElement = function () {
@@ -19,15 +20,17 @@
 	import { ref } from 'vue';
 	import { Howl } from 'howler';
 	import { fade } from './ts/core/Animation';
+	import { wavFiles } from './ts/assets/wavFiles';
 
 	const isDarkMode = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
 		toggleDarkMode = () => {
 			isDarkMode.value = !isDarkMode.value;
-			document.querySelector('html')?.setAttribute('class', 'dark');
-		},
-		loadingPage = 'loadingPage'.getElement();
+			document.querySelector('html')?.setAttribute('class', isDarkMode.value ? 'dark' : '');
+		};
 
 	window.addEventListener('DOMContentLoaded', async () => {
+		const loadingPage = 'loadingPage'.getElement();
+
 		//textResize();
 
 		let luckyFont = [
@@ -48,9 +51,8 @@
 		//getElementById('nameSub').classList.add(`font-['${luckyFont}']`);
 
 		//window.isStartupSoundStarted = 0;
-		let playSrc: string;
 		const startupSound = new Howl({
-			src: '.\\.wav\\startup\\CrashMacII.wav',
+			src: wavFiles.random('startup'),
 			volume: 1,
 			onplay: () => {
 				fade(loadingPage, startupSound.duration(), 1, 0, 144, () => {
@@ -79,7 +81,7 @@
 	<!--Loading page section-->
 	<div
 		class="absolute z-[100] h-dvh w-full bg-white dark:bg-black cursor-pointer flex middle-div pointer-events-none"
-		ref="loadingPage"
+		id="loadingPage"
 		style="opacity: 1">
 		<picture class="flex middle-div full">
 			<img
