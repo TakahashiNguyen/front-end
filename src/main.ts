@@ -1,5 +1,6 @@
-import { createApp } from 'vue';
 import './scss/style.scss';
+import './typeFunctions';
+import { createApp } from 'vue';
 import App from './App.vue';
 import { createMemoryHistory, createRouter } from 'vue-router';
 import BootstrapTest from './components/BootstrapTest.vue';

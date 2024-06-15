@@ -1,26 +1,9 @@
 <script lang="ts">
-	// Custom function for types
-	declare global {
-		interface Array<T> {
-			random(ifContain?: string): Array<T>;
-		}
-		interface String {
-			getElement(): HTMLElement;
-		}
-	}
-
-	Array.prototype.random = function (ifContain?: string) {
-		if (ifContain) this.filter((i: string) => i.toLowerCase().includes(ifContain.toLowerCase()));
-		return this[Math.floor(Math.random() * this.length)];
-	};
-	String.prototype.getElement = function () {
-		return document.getElementById(String(this))!;
-	};
-
 	import loadingPane from './components/core/loadingPane.vue';
 	import { ref } from 'vue';
 	import SpotifyCurrentSong from './components/core/spotifyCurrentSong.vue';
 	import GithubButton from './components/core/githubButton.vue';
+	import ViewCounter from './components/core/viewCounter.vue';
 
 	const isDarkMode = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
 		isSystemDark = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
@@ -38,6 +21,7 @@
 			loadingPane,
 			SpotifyCurrentSong,
 			GithubButton,
+			ViewCounter,
 		},
 	};
 </script>
@@ -48,6 +32,7 @@
 	<div class="h-screen relative w-full">
 		<SpotifyCurrentSong />
 		<GithubButton />
+		<ViewCounter />
 		<img
 			class="fixed -z-40 full scale-[1.4] animate-slide touch-none object-cover blur-sm lg:scale-[1.1] lg:animate-none lg:object-contain lg:blur"
 			id="myImg"

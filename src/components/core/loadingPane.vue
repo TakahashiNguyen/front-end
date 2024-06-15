@@ -1,11 +1,7 @@
 <script lang="ts">
-	import { Howl } from 'howler';
-	import { fade } from '../../ts/core/Animation';
-	import { wavFiles } from '../../ts/assets/wavFiles';
+	import { startupSound } from '../../ts/core/utils';
 
 	window.addEventListener('DOMContentLoaded', async () => {
-		const loadingPage = 'loadingPage'.getElement();
-
 		//textResize();
 
 		let luckyFont = [
@@ -24,23 +20,6 @@
 		].random();
 		//getElementById('name').classList.add(`font-['${luckyFont}']`);
 		//getElementById('nameSub').classList.add(`font-['${luckyFont}']`);
-
-		//window.isStartupSoundStarted = 0;
-		const startupSound = new Howl({
-			src: wavFiles.random('startup'),
-			volume: 1,
-			onplay: () => {
-				fade(loadingPage, startupSound.duration(), 1, 0, 144, () => {
-					loadingPage.classList.add('hidden');
-				});
-			},
-			onplayerror: function () {
-				startupSound.once('unlock', function () {
-					startupSound.play();
-				});
-			},
-			autoplay: true,
-		});
 
 		startupSound.play();
 	});
