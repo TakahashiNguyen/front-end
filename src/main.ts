@@ -12,4 +12,4 @@ const router = createRouter({
 	routes,
 });
 
-createApp(App).use(router).mount('#app');
+createApp(App).use(router).mount('body');

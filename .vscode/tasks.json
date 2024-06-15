@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Execute vite",
+			"isBackground": true,
+			"type": "npm",
+			"script": "dev",
+		}
+	]
+}

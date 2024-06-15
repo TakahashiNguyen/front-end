@@ -33,7 +33,7 @@ export default function fileListPlugin(): Plugin {
 					);
 				};
 
-			['wav'].map((value: string) => getFilesInFolder(value));
+			['wav', 'jpg'].map((value: string) => getFilesInFolder(value));
 		},
 	};
 }
