@@ -1,8 +1,24 @@
 <script lang="ts">
-	import './ts/main';
+	// Custom function for types
+	declare global {
+		interface Array<T> {
+			random(): Array<T>;
+		}
+		interface String {
+			getElement(): HTMLElement;
+		}
+	}
+
+	Array.prototype.random = function () {
+		return this[Math.floor(Math.random() * this.length)];
+	};
+	String.prototype.getElement = function () {
+		return document.getElementById(String(this))!;
+	};
+
 	import { ref } from 'vue';
 	import { Howl } from 'howler';
-	import { fade } from './ts/Animation';
+	import { fade } from './ts/core/Animation';
 
 	const isDarkMode = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
 		toggleDarkMode = () => {
