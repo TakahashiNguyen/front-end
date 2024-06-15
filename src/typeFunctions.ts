@@ -2,7 +2,7 @@ interface Array<T> {
 	random(ifContain?: string): Array<T>;
 }
 interface String {
-	getElement(): HTMLElement;
+	getElement(): HTMLElement & HTMLCanvasElement;
 }
 
 Array.prototype.random = function (ifContain?: string) {
@@ -10,5 +10,5 @@ Array.prototype.random = function (ifContain?: string) {
 	return this[Math.floor(Math.random() * this.length)];
 };
 String.prototype.getElement = function () {
-	return document.getElementById(String(this))!;
+	return document.getElementById(String(this))! as HTMLElement & HTMLCanvasElement;
 };

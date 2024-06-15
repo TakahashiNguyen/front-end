@@ -1,4 +1,5 @@
 import './scss/style.scss';
+import './scss/scrollbar.scss'
 import './typeFunctions';
 import { createApp } from 'vue';
 import App from './App.vue';

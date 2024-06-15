@@ -1,6 +1,6 @@
 <script lang="ts">
-	import loadingPane from './components/core/loadingPane.vue';
 	import { ref } from 'vue';
+	import loadingPane from './components/core/loadingPane.vue';
 	import SpotifyCurrentSong from './components/core/spotifyCurrentSong.vue';
 	import GithubButton from './components/core/githubButton.vue';
 	import ViewCounter from './components/core/viewCounter.vue';
@@ -33,12 +33,6 @@
 		<SpotifyCurrentSong />
 		<GithubButton />
 		<ViewCounter />
-		<img
-			class="fixed -z-40 full scale-[1.4] animate-slide touch-none object-cover blur-sm lg:scale-[1.1] lg:animate-none lg:object-contain lg:blur"
-			id="myImg"
-			title="myImg"
-			crossorigin="anonymous"
-			onload="changeTextColor()" />
 	</div>
 
 	<nav>
@@ -73,5 +67,3 @@
 		<RouterView />
 	</main>
 </template>
-
-<style scoped lang="scss"></style>
