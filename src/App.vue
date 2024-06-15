@@ -50,7 +50,7 @@
 		//window.isStartupSoundStarted = 0;
 		let playSrc: string;
 		const startupSound = new Howl({
-			src: playSrc,
+			src: '.\\.wav\\startup\\CrashMacII.wav',
 			volume: 1,
 			onplay: () => {
 				fade(loadingPage, startupSound.duration(), 1, 0, 144, () => {
