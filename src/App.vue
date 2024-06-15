@@ -17,10 +17,8 @@
 		return document.getElementById(String(this))!;
 	};
 
+	import loadingPane from './components/core/loadingPane.vue';
 	import { ref } from 'vue';
-	import { Howl } from 'howler';
-	import { fade } from './ts/core/Animation';
-	import { wavFiles } from './ts/assets/wavFiles';
 
 	const isDarkMode = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
 		isSystemDark = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
@@ -30,73 +28,27 @@
 			document.querySelector('html')?.setAttribute('data-theme', isDarkMode.value ? 'dark' : 'light');
 		};
 
-	window.addEventListener('DOMContentLoaded', async () => {
-		const loadingPage = 'loadingPage'.getElement();
-
-		//textResize();
-
-		let luckyFont = [
-			'Peristiwa',
-			'Chromate',
-			'attena',
-			'TimberWolf',
-			'Gerlomi',
-			'Amoitar',
-			'Sigokae',
-			'Ginger',
-			'WylieVoigen',
-			'Magnificent',
-			'Karasha',
-			'sofia',
-		].random();
-		//getElementById('name').classList.add(`font-['${luckyFont}']`);
-		//getElementById('nameSub').classList.add(`font-['${luckyFont}']`);
-
-		//window.isStartupSoundStarted = 0;
-		const startupSound = new Howl({
-			src: wavFiles.random('startup'),
-			volume: 1,
-			onplay: () => {
-				fade(loadingPage, startupSound.duration(), 1, 0, 144, () => {
-					loadingPage.classList.add('hidden');
-				});
-			},
-			onplayerror: function () {
-				startupSound.once('unlock', function () {
-					startupSound.play();
-				});
-			},
-			autoplay: true,
-		});
-
-		startupSound.play();
-	});
-
 	export default {
+		name: 'main',
 		setup() {
 			return { toggleDarkMode, isSystemDark };
+		},
+		components: {
+			loadingPane,
 		},
 	};
 </script>
 
 <template>
-	<!--Loading page section-->
-	<div class="absolute cursor-pointer z-[100] bg-white dark:bg-black w-dvw h-dvh" id="loadingPage">
-		<div class="absolute flex square" style="opacity: 1">
-			<picture class="flex middle-div full">
-				<img
-					src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Penguin.png"
-					class="middle-div dObject-dark w-[18%] h-[18%]" />
-				<img
-					src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Cat%20Face.png"
-					class="middle-div dObject w-[18%] h-[18%]" />
-			</picture>
-		</div>
-	</div>
+	<loadingPane />
 
 	<nav>
 		<RouterLink to="/">Go to Home</RouterLink>
 		<RouterLink to="/about">Go to About</RouterLink>
+
+		<!--
+			Toggle dark mode
+		-->
 		<label class="ds-swap ds-swap-rotate">
 			<input type="checkbox" class="ds-theme-controller" value="synthwave" @click="toggleDarkMode" />
 			<svg
