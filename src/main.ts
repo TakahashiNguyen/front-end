@@ -1,10 +1,11 @@
 import './scss/style.scss';
-import './scss/scrollbar.scss'
-import './typeFunctions';
-import { createApp } from 'vue';
+import './scss/scrollbar.scss';
+import './types';
 import App from './App.vue';
 import { createMemoryHistory, createRouter } from 'vue-router';
 import BootstrapTest from './components/BootstrapTest.vue';
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
 
 // Vue-router section
 const routes = [{ path: '/', component: BootstrapTest }];
@@ -14,4 +15,5 @@ const router = createRouter({
 	routes,
 });
 
-createApp(App).use(router).mount('body');
+const pinia = createPinia();
+createApp(App).use(pinia).use(router).mount('body');

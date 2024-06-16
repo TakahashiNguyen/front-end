@@ -1,5 +1,24 @@
+<template>
+	<div class="fixed cursor-pointer z-[100] bg-white dark:bg-black h-lvh w-full" ref="loadingPage">
+		<div class="absolute flex square" style="opacity: 1">
+			<picture class="flex middle-div full">
+				<img
+					src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Penguin.png"
+					class="middle-div dObject-dark w-[18%] h-[18%]" />
+				<img
+					src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Cat%20Face.png"
+					class="middle-div dObject w-[18%] h-[18%]" />
+			</picture>
+		</div>
+	</div>
+</template>
+
 <script lang="ts">
-	import { startupSound } from '../../ts/core/utils';
+	import { Howl } from 'howler';
+	import { fade } from '../../ts/core/Animation';
+	import { wavFiles } from '../../ts/assets/wavFiles';
+
+	const startupSong = wavFiles.random('startup');
 
 	window.addEventListener('DOMContentLoaded', async () => {
 		//textResize();
@@ -20,25 +39,35 @@
 		].random();
 		//getElementById('name').classList.add(`font-['${luckyFont}']`);
 		//getElementById('nameSub').classList.add(`font-['${luckyFont}']`);
-
-		startupSound.play();
 	});
 
 	export default {
 		setup() {},
+		mounted() {
+			this.startupSound();
+		},
+		methods: {
+			startupSound() {
+				const sound = new Howl({
+					src: startupSong,
+					volume: 1,
+					onplay: () => {
+						try {
+							const loadingPage = this.$refs.loadingPage as HTMLElement;
+
+							fade(loadingPage, sound.duration(), 1, 0, 144, () => {
+								loadingPage.classList.add('hidden');
+							});
+						} catch (e) {}
+					},
+					onplayerror: function () {
+						sound.once('unlock', function () {
+							sound.play();
+						});
+					},
+					autoplay: true,
+				});
+			},
+		},
 	};
 </script>
-<template>
-	<div class="fixed cursor-pointer z-[100] bg-white dark:bg-black h-lvh w-full" id="loadingPage">
-		<div class="absolute flex square" style="opacity: 1">
-			<picture class="flex middle-div full">
-				<img
-					src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Penguin.png"
-					class="middle-div dObject-dark w-[18%] h-[18%]" />
-				<img
-					src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Cat%20Face.png"
-					class="middle-div dObject w-[18%] h-[18%]" />
-			</picture>
-		</div>
-	</div>
-</template>

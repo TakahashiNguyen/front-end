@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { ref } from 'vue';
-	import loadingPane from './components/core/loadingPane.vue';
+	import LoadingPane from './components/core/loadingPane.vue';
 	import SpotifyCurrentSong from './components/core/spotifyCurrentSong.vue';
-	import GithubButton from './components/core/githubButton.vue';
 	import ViewCounter from './components/core/viewCounter.vue';
+	import SlidingBackgroundImage from './components/core/slidingBackgroundImage.vue';
 
 	const isDarkMode = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
 		isSystemDark = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
@@ -11,28 +11,40 @@
 			isDarkMode.value = !isDarkMode.value;
 			document.querySelector('html')?.setAttribute('class', isDarkMode.value ? 'dark' : 'light');
 			document.querySelector('html')?.setAttribute('data-theme', isDarkMode.value ? 'dark' : 'light');
-		};
+		},
+		myName = 'Nguyễn Việt Anh',
+		myNickName = 'Takahashi',
+		hashTag: string = 'taDaoCasioThatSuLaCaiGiDo🐧';
+
+	window.addEventListener('DOMContentLoaded', async () => {
+		'name'.getElements().forEach((obj: GeneralHTML) => (obj.textContent = myName));
+		'nickName'.getElements().forEach((obj: GeneralHTML) => (obj.textContent = myNickName));
+		'myHashTag'.getElements().forEach((obj: GeneralHTML) => (obj.textContent = (hashTag !== '' ? '#' : '') + hashTag));
+
+		// Need debug
+		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) 'textDiv'.getElement().style.color = 'black';
+	});
 
 	export default {
 		setup() {
 			return { toggleDarkMode, isSystemDark };
 		},
 		components: {
-			loadingPane,
+			LoadingPane,
 			SpotifyCurrentSong,
-			GithubButton,
 			ViewCounter,
+			SlidingBackgroundImage,
 		},
 	};
 </script>
 
 <template>
-	<loadingPane />
+	<LoadingPane ref="loadingPane" />
 
 	<div class="h-screen relative w-full">
 		<SpotifyCurrentSong />
-		<GithubButton />
 		<ViewCounter />
+		<SlidingBackgroundImage />
 	</div>
 
 	<nav>

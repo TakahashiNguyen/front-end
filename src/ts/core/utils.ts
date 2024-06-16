@@ -1,26 +1,61 @@
-import { Howl } from 'howler';
-import { fade } from '../../ts/core/Animation';
-import { wavFiles } from '../../ts/assets/wavFiles';
-
 // functions
 export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms)),
-	getRandomInt = (max: number) => Math.floor(Math.random() * max);
-
-// consts
-export const startupSound = new Howl({
-	src: wavFiles.random('startup'),
-	volume: 1,
-	onplay: () => {
-		const loadingPage = 'loadingPage'.getElement();
-
-		fade(loadingPage, startupSound.duration(), 1, 0, 144, () => {
-			loadingPage.classList.add('hidden');
-		});
+	getRandomInt = (max: number) => Math.floor(Math.random() * max),
+	abs = (v: number) => Math.abs(v),
+	rgbToHex = (i: Color) =>
+		'#' +
+		((1 << 24) | (abs(i[0] + luckyColor[0]) << 16) | (abs(i[1] + luckyColor[1]) << 8) | abs(i[2] + luckyColor[2])).toString(16).slice(1),
+	hexToRgb = (hex: string, rr = 0, gg = 0, bb = 0) => {
+		const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex || '#000000')!;
+		return [
+			parseInt(result[1], 16) + rr + luckyColor[0],
+			parseInt(result[2], 16) + gg + luckyColor[1],
+			parseInt(result[3], 16) + bb + luckyColor[2],
+		] as Color;
 	},
-	onplayerror: function () {
-		startupSound.once('unlock', function () {
-			startupSound.play();
-		});
-	},
-	autoplay: true,
-});
+	floor = (v: number) => Math.floor(v),
+	fetchDataUrl = (url: string) =>
+		fetch(url)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.blob();
+			})
+			.then(async data => {
+				const reader = new FileReader();
+				reader.readAsDataURL(data);
+				while (reader.readyState !== 2) await sleep(100);
+				return reader.result as string;
+			});
+
+// local consts
+const luckyColor = [getRandomInt(13) - 6, getRandomInt(13) - 6, getRandomInt(13) - 6];
+
+// local class
+class NumberHolder {
+	private value: number;
+
+	constructor(initialValue = 0) {
+		this.value = initialValue;
+	}
+
+	public getValue(): number {
+		return this.value;
+	}
+
+	public setValue(newValue: number): void {
+		this.value = newValue;
+	}
+
+	public increment(amount: number = 1): void {
+		this.value += amount;
+	}
+
+	public decrement(amount: number = 1): void {
+		this.value -= amount;
+	}
+}
+
+// variables
+export let randomImageDelayLeft = new NumberHolder();

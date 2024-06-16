@@ -4,7 +4,6 @@
 		<iframe
 			:src="`https://spotify-github-profile.vercel.app/api/view.svg?uid=${userID}&cover_image=true&theme=natemoo-re&show_offline=true&interchange=true&bar_color=53b14f&bar_color_cover=true`"
 			frameborder="0"
-			title="mySpotify"
 			id="mySpotify"
 			height="84px"
 			width="320px"
