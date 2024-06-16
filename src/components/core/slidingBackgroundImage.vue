@@ -12,10 +12,11 @@
 <script lang="ts">
 	import { jpgFiles } from '../../ts/assets/jpgFiles';
 	import { fade } from '../../ts/core/Animation';
-	import { fetchDataUrl, getRandomInt, hexToRgb, randomImageDelayLeft, rgbToHex, sleep } from '../../ts/core/utils';
+	import { fetchDataUrl, getRandomInt, hexToRgb, rgbToHex, sleep } from '../../ts/core/utils';
 	import GithubButton from './githubButton.vue';
 	import MainText from './mainText.vue';
 	import { htmlStylesStore } from '../../stores/htmlStyles';
+	import { variablesStore } from '../../stores/variables';
 
 	let imageBackgroundBrightness: number,
 		textSquareSize = 0;
@@ -94,13 +95,14 @@
 					textDivSub = (this.$refs.mainText as InstanceType<typeof MainText>).$refs.textDivSub as HTMLElement,
 					textDiv = (this.$refs.mainText as InstanceType<typeof MainText>).$refs.textDiv as HTMLElement,
 					imagesUrl = jpgFiles.filter((i: string) => i.includes('wallpaper')),
-					githubSpin = (this.$refs.githubButton as InstanceType<typeof GithubButton>).$refs.githubSpin as HTMLElement;
+					githubSpin = (this.$refs.githubButton as InstanceType<typeof GithubButton>).$refs.githubSpin as HTMLElement,
+					variables = variablesStore();
 				let images: string[] = [];
 				images.length = imagesUrl.length;
 				imagesUrl.map(async (v, i) => fetchDataUrl(v).then((o: string) => (images[i] = o)));
 
 				var currentIndex = images.indexOf(myImg.src);
-				randomImageDelayLeft.setValue(100);
+				variables.randomImageDelayLeft = 100;
 				do {
 					var newIndex = getRandomInt(images.length);
 					await sleep(100);
@@ -131,9 +133,9 @@
 				}
 				if (data) {
 					do {
-						randomImageDelayLeft.decrement();
+						variables.randomImageDelayLeft -= 1;
 						await sleep(dur * 7.4);
-					} while (randomImageDelayLeft.getValue() > 0);
+					} while (variables.randomImageDelayLeft > 0);
 				} else await sleep(100);
 
 				if (loop) this.randomImage(dur, true);

@@ -30,31 +30,3 @@ export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, 
 
 // local consts
 const luckyColor = [getRandomInt(13) - 6, getRandomInt(13) - 6, getRandomInt(13) - 6];
-
-// local class
-class NumberHolder {
-	private value: number;
-
-	constructor(initialValue = 0) {
-		this.value = initialValue;
-	}
-
-	public getValue(): number {
-		return this.value;
-	}
-
-	public setValue(newValue: number): void {
-		this.value = newValue;
-	}
-
-	public increment(amount: number = 1): void {
-		this.value += amount;
-	}
-
-	public decrement(amount: number = 1): void {
-		this.value -= amount;
-	}
-}
-
-// variables
-export let randomImageDelayLeft = new NumberHolder();

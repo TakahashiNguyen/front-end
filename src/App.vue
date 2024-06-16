@@ -47,7 +47,7 @@
 		<SlidingBackgroundImage />
 	</div>
 
-	<nav>
+	<nav class="blurBackground">
 		<RouterLink to="/">Go to Home</RouterLink>
 		<RouterLink to="/about">Go to About</RouterLink>
 
@@ -75,7 +75,7 @@
 		</label>
 	</nav>
 
-	<main>
+	<main class="bg-white dark:bg-black">
 		<RouterView />
 	</main>
 </template>

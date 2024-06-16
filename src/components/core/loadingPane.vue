@@ -1,6 +1,16 @@
+<style scoped>
+	.square {
+		width: calc(min(100vw, 100vh));
+		height: calc(min(100vw, 100vh));
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+</style>
+
 <template>
 	<div class="fixed cursor-pointer z-[100] bg-white dark:bg-black h-lvh w-full" ref="loadingPage">
-		<div class="absolute flex square" style="opacity: 1">
+		<div class="absolute flex square">
 			<picture class="flex middle-div full">
 				<img
 					src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Penguin.png"
