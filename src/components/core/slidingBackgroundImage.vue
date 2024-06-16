@@ -1,8 +1,9 @@
 <template>
 	<img
-		class="fixed -z-40 full scale-[1.4] animate-slide touch-none object-cover blur-sm lg:scale-[1.1] lg:animate-none lg:object-contain lg:blur"
 		ref="myImg"
-		crossorigin="anonymous" />
+		class="fixed -z-40 full scale-[1.4] animate-slide touch-none object-cover blur-sm lg:scale-[1.1] lg:animate-none lg:object-contain lg:blur"
+		crossorigin="anonymous"
+		@load="changeTextColor" />
 
 	<GithubButton ref="githubButton" />
 	<MainText ref="mainText" />
@@ -11,7 +12,7 @@
 <script lang="ts">
 	import { jpgFiles } from '../../ts/assets/jpgFiles';
 	import { fade } from '../../ts/core/Animation';
-	import { abs, fetchDataUrl, getRandomInt, hexToRgb, randomImageDelayLeft, rgbToHex, sleep } from '../../ts/core/utils';
+	import { fetchDataUrl, getRandomInt, hexToRgb, randomImageDelayLeft, rgbToHex, sleep } from '../../ts/core/utils';
 	import GithubButton from './githubButton.vue';
 	import MainText from './mainText.vue';
 	import { htmlStylesStore } from '../../stores/htmlStyles';
@@ -19,7 +20,8 @@
 	let imageBackgroundBrightness: number,
 		textSquareSize = 0;
 
-	const randomImageDuration = 23;
+	// const randomImageDuration = 23;
+	const randomImageDuration = 10;
 
 	export default {
 		setup() {},
@@ -31,72 +33,35 @@
 			this.randomImage(randomImageDuration, true);
 		},
 		methods: {
-			dataURLToArray(dataURL: string): Uint8Array | null {
-				if (!dataURL) return null;
+			getAverageRGB(img: HTMLImageElement): { r: number; g: number; b: number; colorSum: number } | null {
+				const canvas = document.createElement('canvas'),
+					context = canvas.getContext('2d')!,
+					canvaSize = Math.min(img.width, img.height) / 14;
+				(canvas.width = canvaSize * 11), (canvas.height = canvaSize * 4);
+				var x = (img.width - canvas.width) / 2,
+					y = (img.height - canvas.height) / 2;
 
-				const parts = dataURL.split(',');
-				if (parts.length < 2) return null;
-
-				const contentType = parts[0].split(':')[1].split(';')[0],
-					base64Data = parts[1];
-
-				if (contentType !== 'image/png' && contentType !== 'image/jpeg') {
-					console.warn(`Unsupported image format: ${contentType}`);
-					return null; // Handle unsupported image format
-				}
-
-				const binaryData = atob(base64Data),
-					buffer = new ArrayBuffer(binaryData.length),
-					array = new Uint8Array(buffer);
-
-				for (let i = 0; i < binaryData.length; i++) array[i] = binaryData.charCodeAt(i);
-
-				return array;
-			},
-			getAverageRGB(
-				data: Uint8Array,
-				width: number,
-				height: number,
-				x: number,
-				y: number,
-				rectWidth: number,
-				rectHeight: number,
-			): { r: number; g: number; b: number; colorSum: number } | null {
-				if (
-					!data ||
-					data.length === 0 ||
-					x < 0 ||
-					y < 0 ||
-					rectWidth <= 0 ||
-					rectHeight <= 0 ||
-					x + rectWidth > width ||
-					y + rectHeight > height
-				)
-					return null;
+				context.drawImage(img, -x, -y, img.width, img.height);
+				const data = context.getImageData(0, 0, canvas.width, canvas.height).data!;
 
 				let redSum = 0,
 					greenSum = 0,
 					blueSum = 0,
 					avg,
 					colorSum = 0;
-				const pixelCount = rectWidth * rectHeight;
+				const pixelCount = data.length / 4;
 
-				for (let i = y; i < y + rectHeight; i++) {
-					for (let j = x; j < x + rectWidth; j++) {
-						const index = (i * width + j) * 4;
-						redSum += data[index];
-						greenSum += data[index + 1];
-						blueSum += data[index + 2];
-						avg = Math.floor((data[i] + data[i + 1] + data[i + 2]) / 3);
-						colorSum += avg;
-					}
+				for (let i = 0; i < data.length; i += 4) {
+					(redSum += data[i]), (greenSum += data[i + 1]), (blueSum += data[i + 2]);
+					avg = ((data[i] + data[i + 1] + data[i + 2]) / 3).f();
+					colorSum += avg;
 				}
 
-				const averageRed = Math.round(redSum / pixelCount);
+				const averageRed = (redSum / pixelCount).r();
 				const averageGreen = Math.round(greenSum / pixelCount);
 				const averageBlue = Math.round(blueSum / pixelCount);
 
-				return { r: averageRed, g: averageGreen, b: averageBlue, colorSum: colorSum };
+				return { r: averageRed, g: averageGreen, b: averageBlue, colorSum: colorSum / (canvas.width * canvas.height) };
 			},
 			updateTextDecoration() {
 				const htmlStyles = htmlStylesStore(),
@@ -115,30 +80,12 @@
 			changeTextColor() {
 				const htmlStyles = htmlStylesStore(),
 					myImg = this.$refs.myImg as HTMLImageElement,
-					canvaSize = Math.min(myImg.width, myImg.height) / 14,
-					width = canvaSize * 11,
-					height = canvaSize * 4,
-					x = (myImg.width - width) / 2,
-					y = (myImg.height - height) / 2;
-
-				//				context.drawImage(myImg, -x, -y, myImg.width, myImg.height);
-
-				// new average color
-				const ou = this.getAverageRGB(
-					this.dataURLToArray(myImg.src)!,
-					myImg.width,
-					myImg.height,
-					x.round(),
-					y.round(),
-					canvaSize * 11,
-					canvaSize * 4,
-				)!;
-
-				const brightness = (ou.colorSum / (height * width)).floor(),
-					averageR = abs((brightness < 128 ? 270 : 180) - ou.r.floor()),
-					averageG = abs((brightness < 128 ? 270 : 180) - ou.g.floor()),
-					averageB = abs((brightness < 128 ? 270 : 180) - ou.b.floor());
-				imageBackgroundBrightness = brightness;
+					{ r, g, b, colorSum } = this.getAverageRGB(myImg)!,
+					bri = colorSum.f(),
+					averageR = ((bri < 128 ? 270 : 180) - r.f()).a(),
+					averageG = ((bri < 128 ? 270 : 180) - g.f()).a(),
+					averageB = ((bri < 128 ? 270 : 180) - b.f()).a();
+				imageBackgroundBrightness = bri;
 				htmlStyles.textNameColor = rgbToHex([averageR, averageG, averageB]);
 				this.updateTextDecoration();
 			},
@@ -170,7 +117,6 @@
 					]);
 
 					myImg.setAttribute('src', data);
-					this.changeTextColor();
 					try {
 						'mySpotify'.getElement().src += '';
 					} catch (error) {}

@@ -7,8 +7,9 @@ interface String {
 	num(): number;
 }
 interface Number {
-	floor(): number;
-	round(): number;
+	f(): number; // floor()
+	r(): number; // round()
+	a(): number; // abs()
 }
 
 type GeneralHTML = HTMLElement & HTMLCanvasElement & HTMLImageElement;
@@ -23,11 +24,14 @@ String.prototype.getElements = function () {
 String.prototype.num = function () {
 	return Number(this);
 };
-Number.prototype.floor = function () {
+Number.prototype.f = function () {
 	return Math.floor(Number(this));
 };
-Number.prototype.round = function () {
+Number.prototype.r = function () {
 	return Math.round(Number(this));
+};
+Number.prototype.a = function () {
+	return Math.abs(Number(this));
 };
 
 type Color = [number, number, number];
