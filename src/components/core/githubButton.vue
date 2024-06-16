@@ -8,7 +8,7 @@
 			<div class="-z-50 animate-[spin_6s_linear_infinite] rounded-full blurBackground">
 				<div
 					class="rounded-full outline-dashed outline-2 outline-offset-2 h-9 w-9"
-					:class="`outline-[${htmlStyles.outlineColor}]`"
+					:style="`outline-color: ${htmlStyles.outlineColor};`"
 					ref="githubSpin"></div>
 			</div>
 		</div>

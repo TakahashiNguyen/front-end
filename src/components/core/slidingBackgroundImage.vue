@@ -124,14 +124,20 @@
 				//				context.drawImage(myImg, -x, -y, myImg.width, myImg.height);
 
 				// new average color
-				const data = this.dataURLToArray(myImg.src);
-				const ou = this.getAverageRGB(data!, myImg.width, myImg.height, x.round(), y.round(), canvaSize * 11, canvaSize * 4)!;
+				const ou = this.getAverageRGB(
+					this.dataURLToArray(myImg.src)!,
+					myImg.width,
+					myImg.height,
+					x.round(),
+					y.round(),
+					canvaSize * 11,
+					canvaSize * 4,
+				)!;
 
-				const brightness = Math.floor(ou.colorSum / (height * width)),
-					pixelCount = data!.length / 4,
-					averageR = abs((brightness < 128 ? 270 : 180) - Math.floor(ou.r / pixelCount)),
-					averageG = abs((brightness < 128 ? 270 : 180) - Math.floor(ou.g / pixelCount)),
-					averageB = abs((brightness < 128 ? 270 : 180) - Math.floor(ou.b / pixelCount));
+				const brightness = (ou.colorSum / (height * width)).floor(),
+					averageR = abs((brightness < 128 ? 270 : 180) - ou.r.floor()),
+					averageG = abs((brightness < 128 ? 270 : 180) - ou.g.floor()),
+					averageB = abs((brightness < 128 ? 270 : 180) - ou.b.floor());
 				imageBackgroundBrightness = brightness;
 				htmlStyles.textNameColor = rgbToHex([averageR, averageG, averageB]);
 				this.updateTextDecoration();
