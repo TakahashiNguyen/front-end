@@ -26,6 +26,20 @@ export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, 
 				reader.readAsDataURL(data);
 				while (reader.readyState !== 2) await sleep(100);
 				return reader.result as string;
+			}),
+	fetchText = (url: string) =>
+		fetch(url)
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.blob();
+			})
+			.then(async data => {
+				const reader = new FileReader();
+				reader.readAsText(data);
+				while (reader.readyState !== 2) await sleep(100);
+				return reader.result as string;
 			});
 
 // local consts

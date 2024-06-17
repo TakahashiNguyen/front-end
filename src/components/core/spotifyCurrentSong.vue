@@ -9,7 +9,7 @@
 			width="320px"
 			class="z-40"></iframe>
 		<div class="absolute z-50 full select-none bg-transparent"></div>
-		<div class="fixed z-30 full backdrop-blur-md blurBackground" id="spotifyBackground"></div>
+		<div class="fixed z-30 full backdrop-blur-md blurBackground"></div>
 	</div>
 </template>
 

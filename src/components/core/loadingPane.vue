@@ -10,6 +10,7 @@
 
 <template>
 	<div class="fixed cursor-pointer z-[100] bg-white dark:bg-black h-lvh w-full" ref="loadingPage">
+		<div class="absolute z-50 full select-none bg-transparent"></div>
 		<div class="absolute flex square">
 			<picture class="flex middle-div full">
 				<img
