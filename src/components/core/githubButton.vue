@@ -22,6 +22,7 @@
 	export default {
 		setup() {
 			const htmlStyles = htmlStylesStore();
+
 			return { htmlStyles };
 		},
 		methods: {

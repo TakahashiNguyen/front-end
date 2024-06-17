@@ -5,10 +5,12 @@
 		crossorigin="anonymous"
 		@load="changeTextColor" />
 
-	<SpotifyCurrentSong />
-	<ViewCounter />
-	<GithubButton ref="githubButton" />
-	<MainText ref="mainText" :hash-tag="hashTag" />
+	<div class="relative">
+		<SpotifyCurrentSong />
+		<ViewCounter />
+		<GithubButton ref="githubButton" />
+		<MainText ref="mainText" :hash-tag="hashTag" />
+	</div>
 </template>
 
 <script lang="ts">
@@ -21,11 +23,17 @@
 	import SpotifyCurrentSong from './spotifyCurrentSong.vue';
 	import ViewCounter from './viewCounter.vue';
 	import MainText from './mainText.vue';
+	import { ref } from 'vue';
 
 	const randomImageDuration = 23;
 
 	export default {
-		setup() {},
+		setup() {
+			const mainText = ref<typeof MainText>(),
+				githubButton = ref<typeof GithubButton>();
+
+			return { mainText, githubButton };
+		},
 		components: {
 			GithubButton,
 			SpotifyCurrentSong,
@@ -74,8 +82,7 @@
 			},
 			updateTextDecoration(imgBackgroudBrightness: number) {
 				const htmlStyles = htmlStylesStore(),
-					//@ts-ignore
-					textSqrWidth = this.$refs.mainText.$refs.textSqr.clientWidth,
+					textSqrWidth = this.mainText!.$refs.textSqr.clientWidth,
 					updateColor = (imgBackgroudBrightness > 128 ? 1 : -1) * 74,
 					color = rgbToHex(hexToRgb(htmlStyles.textNameColor, updateColor, updateColor, updateColor)),
 					siz = (e: number) => (textSqrWidth / (1941 * 2)) * e;
@@ -101,12 +108,9 @@
 			},
 			async randomImage(dur: number, loop = false) {
 				const myImg = this.$refs.myImg as HTMLImageElement,
-					//@ts-ignore
-					textDiv = this.$refs.mainText.$refs.textDiv,
-					//@ts-ignore
-					textDivSub = this.$refs.mainText.$refs.textDivSub,
-					//@ts-ignore
-					githubSpin = this.$refs.githubButton.$refs.githubSpin,
+					textDiv = this.mainText!.$refs.textDiv,
+					textDivSub = this.mainText!.$refs.textDivSub,
+					githubSpin = this.githubButton!.$refs.githubSpin,
 					imagesUrl = jpgFiles.filter((i: string) => i.includes('wallpaper')),
 					variables = variablesStore();
 				let images: string[] = [];

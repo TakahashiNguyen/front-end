@@ -16,7 +16,6 @@
 			},
 			"sourceMaps": true,
 			"runtimeArgs": ["--remote-debugging-port=9222"],
-			"preLaunchTask": "Execute vite"
 		},
 		{
 			"name": "Debug NodeJS",

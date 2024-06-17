@@ -1,31 +1,27 @@
 <style scoped>
 	.square {
-		--square-size: calc(min(100vw, 100vh));
 		width: var(--square-size);
 		height: var(--square-size);
 	}
 
 	.scale-mainName {
-		--square-size: calc(min(100vw, 100vh) / 15);
-		font-size: calc(var(--square-size));
-		line-height: calc(var(--square-size) * 9 / 8);
+		font-size: calc(var(--square-size) / 15);
+		line-height: calc(var(--square-size) / 15 * 9 / 8);
 	}
 
 	.scale-nickName {
-		--square-size: calc(min(100vw, 100vh) / 33);
-		font-size: calc(var(--square-size));
-		line-height: calc(var(--square-size) * 9 / 8);
+		font-size: calc(var(--square-size) / 33);
+		line-height: calc(var(--square-size) / 33 * 9 / 8);
 	}
 
 	.scale-hashTag {
-		--square-size: calc(min(100vw, 100vh) / 50);
-		font-size: calc(var(--square-size));
-		line-height: calc(var(--square-size) * 9 / 8);
+		font-size: calc(var(--square-size) / 50);
+		line-height: calc(var(--square-size) / 50 * 9 / 8);
 	}
 </style>
 
 <template>
-	<div class="h-dvh flex middle-div dark:text-white text-black">
+	<div class="h-dvh flex middle-div dark:text-white text-black" :style="cssVars">
 		<div class="middle-div flex square" ref="textSqr">
 			<div
 				class="absolute z-40 flex flex-col middle-div scale-125 -skew-y-6 lg:scale-100"
@@ -77,16 +73,13 @@
 			const obj = this.$refs;
 			Object.entries(obj)
 				.filter(i => i[0].includes('name'))
-				//@ts-expect-error: Acceptable error due to auto correct is crazy
-				.forEach(i => (i[1].textContent = this.$props.myName));
+				.forEach(i => ((i[1] as HTMLElement).textContent = this.$props.myName));
 			Object.entries(obj)
 				.filter(i => i[0].includes('nickName'))
-				//@ts-expect-error: Acceptable error due to auto correct is crazy
-				.forEach(i => (i[1].textContent = this.$props.myNickName));
+				.forEach(i => ((i[1] as HTMLElement).textContent = this.$props.myNickName));
 			Object.entries(obj)
 				.filter(i => i[0].includes('myHashTag'))
-				//@ts-expect-error: Acceptable error due to auto correct is crazy
-				.forEach(i => (i[1].textContent = (this.$props.hashTag !== '' ? '#' : '') + this.$props.hashTag));
+				.forEach(i => ((i[1] as HTMLElement).textContent = (this.$props.hashTag !== '' ? '#' : '') + this.$props.hashTag));
 		},
 		props: {
 			myName: {
@@ -100,6 +93,13 @@
 			hashTag: {
 				type: String,
 				default: '',
+			},
+		},
+		computed: {
+			cssVars() {
+				return {
+					'--square-size': 'calc(min(100vw, 100vh))',
+				};
 			},
 		},
 	};
