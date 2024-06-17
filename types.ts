@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 interface Array<T> {
 	random(): Array<T>;
-	get(subString: any): Array<T>;
+	get(subString: string): Array<T>;
 	last(): T;
 }
 interface String {
@@ -16,7 +17,7 @@ interface Number {
 
 type GeneralHTML = HTMLElement & HTMLCanvasElement & HTMLImageElement;
 
-Array.prototype.get = function (subString: any) {
+Array.prototype.get = function (subString: string) {
 	return this.filter(i => i.includes(subString));
 };
 Array.prototype.random = function () {

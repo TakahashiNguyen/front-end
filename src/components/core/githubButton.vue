@@ -19,14 +19,15 @@
 	import { getRandomInt } from '../../ts/core/utils';
 	import { htmlStylesStore } from '../../stores/htmlStyles';
 
-	const buttonOpen = () => {
-		window.open(getRandomInt(6) ? 'https://github.com/TakahashiNguyen' : 'https://www.youtube.com/@vtv24', '_blank');
-	};
-
 	export default {
 		setup() {
 			const htmlStyles = htmlStylesStore();
-			return { buttonOpen, htmlStyles };
+			return { htmlStyles };
+		},
+		methods: {
+			buttonOpen() {
+				window.open(getRandomInt(6) ? 'https://github.com/TakahashiNguyen' : 'https://www.youtube.com/@vtv24', '_blank');
+			},
 		},
 	};
 </script>

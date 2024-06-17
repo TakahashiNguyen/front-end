@@ -74,19 +74,18 @@
 			return { htmlStyles, variables, luckyFont };
 		},
 		mounted() {
-			//@ts-ignore
 			const obj = this.$refs;
 			Object.entries(obj)
 				.filter(i => i[0].includes('name'))
-				//@ts-ignore
+				//@ts-expect-error: Acceptable error due to auto correct is crazy
 				.forEach(i => (i[1].textContent = this.$props.myName));
 			Object.entries(obj)
 				.filter(i => i[0].includes('nickName'))
-				//@ts-ignore
+				//@ts-expect-error: Acceptable error due to auto correct is crazy
 				.forEach(i => (i[1].textContent = this.$props.myNickName));
 			Object.entries(obj)
 				.filter(i => i[0].includes('myHashTag'))
-				//@ts-ignore
+				//@ts-expect-error: Acceptable error due to auto correct is crazy
 				.forEach(i => (i[1].textContent = (this.$props.hashTag !== '' ? '#' : '') + this.$props.hashTag));
 		},
 		props: {
