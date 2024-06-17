@@ -3,9 +3,9 @@
 	"tasks": [
 		{
 			"label": "Execute vite",
-			"isBackground": false,
+			"isBackground": true,
 			"type": "npm",
-			"script": "dev",
+			"script": "dev"
 		}
 	]
 }

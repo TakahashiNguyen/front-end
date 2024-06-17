@@ -13,13 +13,10 @@
 	import { jpgFiles } from '../../ts/assets/jpgFiles';
 	import { fade } from '../../ts/core/Animation';
 	import { fetchDataUrl, getRandomInt, hexToRgb, rgbToHex, sleep } from '../../ts/core/utils';
-	import GithubButton from './githubButton.vue';
 	import MainText from './mainText.vue';
 	import { htmlStylesStore } from '../../stores/htmlStyles';
 	import { variablesStore } from '../../stores/variables';
-
-	let imageBackgroundBrightness: number,
-		textSquareSize = 0;
+	import GithubButton from './githubButton.vue';
 
 	// const randomImageDuration = 23;
 	const randomImageDuration = 10;
@@ -64,11 +61,13 @@
 
 				return { r: averageRed, g: averageGreen, b: averageBlue, colorSum: colorSum / (canvas.width * canvas.height) };
 			},
-			updateTextDecoration() {
+			updateTextDecoration(imgBackgroudBrightness: number) {
 				const htmlStyles = htmlStylesStore(),
-					updateColor = (imageBackgroundBrightness > 128 ? 1 : -1) * 74,
+					//@ts-ignore
+					textSqrWidth = this.$refs.mainText.$refs.textSqr.clientWidth,
+					updateColor = (imgBackgroudBrightness > 128 ? 1 : -1) * 74,
 					color = rgbToHex(hexToRgb(htmlStyles.textNameColor, updateColor, updateColor, updateColor)),
-					siz = (e: number) => (textSquareSize / (1941 * 2)) * e;
+					siz = (e: number) => (textSqrWidth / (1941 * 2)) * e;
 				htmlStyles.outlineColor = htmlStyles.textNameColor;
 				htmlStyles.textNameShadow = `
 								${-siz(1)}px ${siz(1)}px ${siz(1)}px ${color},
@@ -86,16 +85,18 @@
 					averageR = ((bri < 128 ? 270 : 180) - r.f()).a(),
 					averageG = ((bri < 128 ? 270 : 180) - g.f()).a(),
 					averageB = ((bri < 128 ? 270 : 180) - b.f()).a();
-				imageBackgroundBrightness = bri;
 				htmlStyles.textNameColor = rgbToHex([averageR, averageG, averageB]);
-				this.updateTextDecoration();
+				this.updateTextDecoration(bri);
 			},
 			async randomImage(dur: number, loop = false) {
 				const myImg = this.$refs.myImg as HTMLImageElement,
-					textDivSub = (this.$refs.mainText as InstanceType<typeof MainText>).$refs.textDivSub as HTMLElement,
-					textDiv = (this.$refs.mainText as InstanceType<typeof MainText>).$refs.textDiv as HTMLElement,
+					//@ts-ignore
+					textDiv = this.$refs.mainText.$refs.textDiv,
+					//@ts-ignore
+					textDivSub = this.$refs.mainText.$refs.textDivSub,
+					//@ts-ignore
+					githubSpin = this.$refs.githubButton.$refs.githubSpin,
 					imagesUrl = jpgFiles.filter((i: string) => i.includes('wallpaper')),
-					githubSpin = (this.$refs.githubButton as InstanceType<typeof GithubButton>).$refs.githubSpin as HTMLElement,
 					variables = variablesStore();
 				let images: string[] = [];
 				images.length = imagesUrl.length;

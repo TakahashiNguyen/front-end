@@ -14,7 +14,7 @@
 
 <template>
 	<div class="h-dvh flex middle-div dark:text-white text-black">
-		<div class="middle-div flex square">
+		<div class="middle-div flex square" ref="textSqr">
 			<div
 				class="absolute z-40 flex flex-col middle-div scale-150 -skew-y-6 lg:scale-100 scale-text"
 				:style="`text-shadow:${htmlStyles.textNameShadow}; color:${htmlStyles.textNameColor};`"

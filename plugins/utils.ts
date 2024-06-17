@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import '../src/types';
+import '../types';
 
 export function getAllFilesRecursive(dirPath: string): string[] {
 	const files: string[] = [],
