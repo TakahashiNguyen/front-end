@@ -5,6 +5,8 @@
 		crossorigin="anonymous"
 		@load="changeTextColor" />
 
+	<SpotifyCurrentSong />
+	<ViewCounter />
 	<GithubButton ref="githubButton" />
 	<MainText ref="mainText" :hash-tag="hashTag" />
 </template>
@@ -13,10 +15,12 @@
 	import { jpgFiles } from '../../ts/assets/jpgFiles';
 	import { fade } from '../../ts/core/Animation';
 	import { fetchDataUrl, getRandomInt, hexToRgb, rgbToHex, sleep } from '../../ts/core/utils';
-	import MainText from './mainText.vue';
 	import { htmlStylesStore } from '../../stores/htmlStyles';
 	import { variablesStore } from '../../stores/variables';
 	import GithubButton from './githubButton.vue';
+	import SpotifyCurrentSong from './spotifyCurrentSong.vue';
+	import ViewCounter from './viewCounter.vue';
+	import MainText from './mainText.vue';
 
 	const randomImageDuration = 23;
 
@@ -24,6 +28,8 @@
 		setup() {},
 		components: {
 			GithubButton,
+			SpotifyCurrentSong,
+			ViewCounter,
 			MainText,
 		},
 		mounted() {

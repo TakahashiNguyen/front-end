@@ -8,8 +8,6 @@
 	<LoadingPane ref="loadingPane" />
 
 	<div class="h-screen relative w-full">
-		<SpotifyCurrentSong />
-		<ViewCounter />
 		<SlidingBackgroundImage ref="bgImg" :hashTag="hashTag" />
 	</div>
 
@@ -51,8 +49,6 @@
 <script lang="ts">
 	import { ref } from 'vue';
 	import LoadingPane from './components/core/loadingPane.vue';
-	import SpotifyCurrentSong from './components/core/spotifyCurrentSong.vue';
-	import ViewCounter from './components/core/viewCounter.vue';
 	import SlidingBackgroundImage from './components/core/slidingBackgroundImage.vue';
 
 	const isDarkMode = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
@@ -65,8 +61,6 @@
 		},
 		components: {
 			LoadingPane,
-			SpotifyCurrentSong,
-			ViewCounter,
 			SlidingBackgroundImage,
 		},
 		mounted() {
