@@ -1,39 +1,22 @@
 import { Plugin } from 'vite';
+import { getAllFilesRecursive } from './utils';
+import * as path from 'path';
+import * as fs from 'fs';
 
 export default function fileListPlugin(): Plugin {
 	return {
 		name: 'file-list-plugin',
 		async buildStart() {
-			const path = await import('path'),
-				fs = await import('fs');
+			const getFilesInFolder = (ext: string) => {
+				const folderPath = `./public/.${ext}`,
+					fileNames = getAllFilesRecursive(folderPath);
+				fs.writeFileSync(
+					path.join(__dirname, `/../src/ts/assets/${ext}Files.ts`),
+					`export const ${ext}Files = ['${fileNames.map(i => `./${i}`).join("',\n'")}']`,
+				);
+			};
 
-			const getAllFilesRecursive = (dirPath: string): string[] => {
-					const files: string[] = [],
-						entries = fs.readdirSync(dirPath);
-
-					for (const entry of entries) {
-						const fullPath = path.join(dirPath, entry),
-							stats = fs.statSync(fullPath);
-
-						if (stats.isDirectory()) {
-							files.push(...getAllFilesRecursive(fullPath));
-						} else {
-							files.push(fullPath.split('\\').slice(1).join('/'));
-						}
-					}
-
-					return files;
-				},
-				getFilesInFolder = (ext: string) => {
-					const folderPath = `./public/.${ext}`,
-						fileNames = getAllFilesRecursive(folderPath);
-					fs.writeFileSync(
-						path.join(__dirname, `/../src/ts/assets/${ext}Files.ts`),
-						`export const ${ext}Files = ['${fileNames.map(i => `./${i}`).join("',\n'")}']`,
-					);
-				};
-
-			['wav', 'jpg'].map((value: string) => getFilesInFolder(value));
+			['wav', 'jpg'].forEach((value: string) => getFilesInFolder(value));
 		},
 	};
 }

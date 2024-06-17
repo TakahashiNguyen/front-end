@@ -1,5 +1,7 @@
 interface Array<T> {
-	random(ifContain?: string): Array<T>;
+	random(): Array<T>;
+	get(subString: any): Array<T>;
+	last(): T;
 }
 interface String {
 	getElement(): GeneralHTML;
@@ -14,9 +16,14 @@ interface Number {
 
 type GeneralHTML = HTMLElement & HTMLCanvasElement & HTMLImageElement;
 
-Array.prototype.random = function (ifContain?: string) {
-	if (ifContain) this.filter((i: string) => i.toLowerCase().includes(ifContain.toLowerCase()));
+Array.prototype.get = function (subString: any) {
+	return this.filter(i => i.includes(subString));
+};
+Array.prototype.random = function () {
 	return this[Math.floor(Math.random() * this.length)];
+};
+Array.prototype.last = function () {
+	return this[this.length - 1];
 };
 String.prototype.getElements = function () {
 	return Array.from(document.querySelectorAll(`[id*=${this}]`));

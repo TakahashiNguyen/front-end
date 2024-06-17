@@ -28,7 +28,7 @@
 	import { fade } from '../../ts/core/Animation';
 	import { wavFiles } from '../../ts/assets/wavFiles';
 
-	const startupSong = wavFiles.random('startup');
+	const startupSong = wavFiles.get('startup').random();
 
 	window.addEventListener('DOMContentLoaded', async () => {
 		//textResize();

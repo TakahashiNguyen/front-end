@@ -7,11 +7,6 @@
 
 	const isDarkMode = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
 		isSystemDark = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
-		toggleDarkMode = () => {
-			isDarkMode.value = !isDarkMode.value;
-			document.querySelector('html')?.setAttribute('class', isDarkMode.value ? 'dark' : 'light');
-			document.querySelector('html')?.setAttribute('data-theme', isDarkMode.value ? 'dark' : 'light');
-		},
 		myName = 'Nguyễn Việt Anh',
 		myNickName = 'Takahashi',
 		hashTag: string = 'taDaoCasioThatSuLaCaiGiDo🐧';
@@ -27,13 +22,20 @@
 
 	export default {
 		setup() {
-			return { toggleDarkMode, isSystemDark };
+			return { isSystemDark };
 		},
 		components: {
 			LoadingPane,
 			SpotifyCurrentSong,
 			ViewCounter,
 			SlidingBackgroundImage,
+		},
+		methods: {
+			toggleDarkMode() {
+				isDarkMode.value = !isDarkMode.value;
+				document.querySelector('html')?.setAttribute('class', isDarkMode.value ? 'dark' : 'light');
+				document.querySelector('html')?.setAttribute('data-theme', isDarkMode.value ? 'dark' : 'light');
+			},
 		},
 	};
 </script>
