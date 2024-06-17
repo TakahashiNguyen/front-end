@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LoadingPane from './loadingPane.vue';
+	import LoadingPane from '../core/loadingPane.vue';
 
 	export default {
 		setup() {

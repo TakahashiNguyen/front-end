@@ -10,6 +10,7 @@
 		<ViewCounter />
 		<GithubButton ref="ghBtn" />
 		<MainText ref="mTxt" :hash-tag="hashTag" />
+		<ContentAvisory />
 	</div>
 </template>
 
@@ -19,10 +20,11 @@
 	import { fetchDataUrl, getRandomInt, hexToRgb, rgbToHex, sleep } from '../../ts/core/utils';
 	import { htmlStylesStore } from '../../stores/htmlStyles';
 	import { variablesStore } from '../../stores/variables';
-	import GithubButton from './githubButton.vue';
-	import SpotifyCurrentSong from './spotifyCurrentSong.vue';
-	import ViewCounter from './viewCounter.vue';
-	import MainText from './mainText.vue';
+	import GithubButton from '../utils/githubButton.vue';
+	import SpotifyCurrentSong from '../utils/spotifyCurrentSong.vue';
+	import ViewCounter from '../utils/viewCounter.vue';
+	import MainText from '../utils/mainText.vue';
+	import ContentAvisory from '../utils/contentAdvisory.vue';
 	import { ref } from 'vue';
 
 	const randomImageDuration = 23;
@@ -39,6 +41,7 @@
 			SpotifyCurrentSong,
 			ViewCounter,
 			MainText,
+			ContentAvisory,
 		},
 		mounted() {
 			this.randomImage(randomImageDuration, true);
@@ -46,7 +49,7 @@
 		props: {
 			hashTag: {
 				type: String,
-				require: true,
+				required: true,
 			},
 		},
 		methods: {

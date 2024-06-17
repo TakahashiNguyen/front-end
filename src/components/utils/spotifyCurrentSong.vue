@@ -18,7 +18,7 @@
 		props: {
 			userID: {
 				type: String,
-				require: false,
+				required: false,
 				default: '31y4j5i6zru4mnmqsvx5cqqgmp3a',
 			},
 		},
