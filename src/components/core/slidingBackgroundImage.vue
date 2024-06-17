@@ -18,8 +18,7 @@
 	import { variablesStore } from '../../stores/variables';
 	import GithubButton from './githubButton.vue';
 
-	// const randomImageDuration = 23;
-	const randomImageDuration = 10;
+	const randomImageDuration = 23;
 
 	export default {
 		setup() {},

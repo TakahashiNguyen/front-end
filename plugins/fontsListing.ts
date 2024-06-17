@@ -18,7 +18,7 @@ export default function fontsListing(): Plugin {
 							`
 @font-face {
 	font-family: ${v.split('/').last().split('.')[0]};
-	src: url(../../public/${v});
+	src: url(/${v});
 }
 							`,
 						);

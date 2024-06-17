@@ -30,27 +30,6 @@
 
 	const startupSong = wavFiles.get('startup').random();
 
-	window.addEventListener('DOMContentLoaded', async () => {
-		//textResize();
-
-		let luckyFont = [
-			'Peristiwa',
-			'Chromate',
-			'attena',
-			'TimberWolf',
-			'Gerlomi',
-			'Amoitar',
-			'Sigokae',
-			'Ginger',
-			'WylieVoigen',
-			'Magnificent',
-			'Karasha',
-			'sofia',
-		].random();
-		//getElementById('name').classList.add(`font-['${luckyFont}']`);
-		//getElementById('nameSub').classList.add(`font-['${luckyFont}']`);
-	});
-
 	export default {
 		setup() {},
 		mounted() {

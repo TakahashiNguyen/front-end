@@ -11,15 +11,6 @@
 		myNickName = 'Takahashi',
 		hashTag: string = 'taDaoCasioThatSuLaCaiGiDo🐧';
 
-	window.addEventListener('DOMContentLoaded', async () => {
-		'name'.getElements().forEach((obj: GeneralHTML) => (obj.textContent = myName));
-		'nickName'.getElements().forEach((obj: GeneralHTML) => (obj.textContent = myNickName));
-		'myHashTag'.getElements().forEach((obj: GeneralHTML) => (obj.textContent = (hashTag !== '' ? '#' : '') + hashTag));
-
-		// Need debug
-		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) 'textDiv'.getElement().style.color = 'black';
-	});
-
 	export default {
 		setup() {
 			return { isSystemDark };
@@ -29,6 +20,25 @@
 			SpotifyCurrentSong,
 			ViewCounter,
 			SlidingBackgroundImage,
+		},
+		mounted() {
+			//@ts-ignore
+			const obj = this.$refs.bgImg.$refs.mainText.$refs;
+			Object.entries(obj)
+				.filter(i => i[0].includes('name'))
+				//@ts-ignore
+				.forEach(i => (i[1].textContent = myName));
+			Object.entries(obj)
+				.filter(i => i[0].includes('nickName'))
+				//@ts-ignore
+				.forEach(i => (i[1].textContent = myNickName));
+			Object.entries(obj)
+				.filter(i => i[0].includes('myHashTag'))
+				//@ts-ignore
+				.forEach(i => (i[1].textContent = (hashTag !== '' ? '#' : '') + hashTag));
+
+			// Need debug
+			if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) 'textDiv'.getElement().style.color = 'black';
 		},
 		methods: {
 			toggleDarkMode() {
@@ -46,7 +56,7 @@
 	<div class="h-screen relative w-full">
 		<SpotifyCurrentSong />
 		<ViewCounter />
-		<SlidingBackgroundImage />
+		<SlidingBackgroundImage ref="bgImg" />
 	</div>
 
 	<nav class="blurBackground">
