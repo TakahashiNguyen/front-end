@@ -12,7 +12,7 @@
 	}
 
 	.scale-nickName {
-		--square-size: calc(min(100vw, 100vh) / 27);
+		--square-size: calc(min(100vw, 100vh) / 33);
 		font-size: calc(var(--square-size));
 		line-height: calc(var(--square-size) * 9 / 8);
 	}
@@ -73,7 +73,35 @@
 				].random();
 			return { htmlStyles, variables, luckyFont };
 		},
-		mounted() {},
-		methods: {},
+		mounted() {
+			//@ts-ignore
+			const obj = this.$refs;
+			Object.entries(obj)
+				.filter(i => i[0].includes('name'))
+				//@ts-ignore
+				.forEach(i => (i[1].textContent = this.$props.myName));
+			Object.entries(obj)
+				.filter(i => i[0].includes('nickName'))
+				//@ts-ignore
+				.forEach(i => (i[1].textContent = this.$props.myNickName));
+			Object.entries(obj)
+				.filter(i => i[0].includes('myHashTag'))
+				//@ts-ignore
+				.forEach(i => (i[1].textContent = (this.$props.hashTag !== '' ? '#' : '') + this.$props.hashTag));
+		},
+		props: {
+			myName: {
+				type: String,
+				default: 'Nguyễn Việt Anh',
+			},
+			myNickName: {
+				type: String,
+				default: 'Takahashi',
+			},
+			hashTag: {
+				type: String,
+				default: '',
+			},
+		},
 	};
 </script>

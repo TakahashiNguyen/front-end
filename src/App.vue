@@ -7,13 +7,11 @@
 
 	const isDarkMode = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
 		isSystemDark = ref(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches),
-		myName = 'Nguyễn Việt Anh',
-		myNickName = 'Takahashi',
-		hashTag: string = 'taDaoCasioThatSuLaCaiGiDo🐧';
+		hashTag = 'new?';
 
 	export default {
 		setup() {
-			return { isSystemDark };
+			return { isSystemDark, hashTag };
 		},
 		components: {
 			LoadingPane,
@@ -22,21 +20,6 @@
 			SlidingBackgroundImage,
 		},
 		mounted() {
-			//@ts-ignore
-			const obj = this.$refs.bgImg.$refs.mainText.$refs;
-			Object.entries(obj)
-				.filter(i => i[0].includes('name'))
-				//@ts-ignore
-				.forEach(i => (i[1].textContent = myName));
-			Object.entries(obj)
-				.filter(i => i[0].includes('nickName'))
-				//@ts-ignore
-				.forEach(i => (i[1].textContent = myNickName));
-			Object.entries(obj)
-				.filter(i => i[0].includes('myHashTag'))
-				//@ts-ignore
-				.forEach(i => (i[1].textContent = (hashTag !== '' ? '#' : '') + hashTag));
-
 			// Need debug
 			if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) 'textDiv'.getElement().style.color = 'black';
 		},
@@ -56,7 +39,7 @@
 	<div class="h-screen relative w-full">
 		<SpotifyCurrentSong />
 		<ViewCounter />
-		<SlidingBackgroundImage ref="bgImg" />
+		<SlidingBackgroundImage ref="bgImg" :hashTag="hashTag" />
 	</div>
 
 	<nav class="blurBackground">

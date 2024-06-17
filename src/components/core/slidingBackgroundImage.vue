@@ -6,7 +6,7 @@
 		@load="changeTextColor" />
 
 	<GithubButton ref="githubButton" />
-	<MainText ref="mainText" />
+	<MainText ref="mainText" :hash-tag="hashTag" />
 </template>
 
 <script lang="ts">
@@ -28,6 +28,12 @@
 		},
 		mounted() {
 			this.randomImage(randomImageDuration, true);
+		},
+		props: {
+			hashTag: {
+				type: String,
+				require: true,
+			},
 		},
 		methods: {
 			getAverageRGB(img: HTMLImageElement): { r: number; g: number; b: number; colorSum: number } | null {
