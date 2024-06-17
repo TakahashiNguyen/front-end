@@ -8,8 +8,8 @@
 	<div class="relative">
 		<SpotifyCurrentSong />
 		<ViewCounter />
-		<GithubButton ref="githubButton" />
-		<MainText ref="mainText" :hash-tag="hashTag" />
+		<GithubButton ref="ghBtn" />
+		<MainText ref="mTxt" :hash-tag="hashTag" />
 	</div>
 </template>
 
@@ -29,10 +29,10 @@
 
 	export default {
 		setup() {
-			const mainText = ref<typeof MainText>(),
-				githubButton = ref<typeof GithubButton>();
+			const mTxt = ref<typeof MainText>(),
+				ghBtn = ref<typeof GithubButton>();
 
-			return { mainText, githubButton };
+			return { mTxt, ghBtn };
 		},
 		components: {
 			GithubButton,
@@ -82,7 +82,7 @@
 			},
 			updateTextDecoration(imgBackgroudBrightness: number) {
 				const htmlStyles = htmlStylesStore(),
-					textSqrWidth = this.mainText!.$refs.textSqr.clientWidth,
+					textSqrWidth = this.mTxt!.$refs.textSqr.clientWidth,
 					updateColor = (imgBackgroudBrightness > 128 ? 1 : -1) * 74,
 					color = rgbToHex(hexToRgb(htmlStyles.textNameColor, updateColor, updateColor, updateColor)),
 					siz = (e: number) => (textSqrWidth / (1941 * 2)) * e;
@@ -108,9 +108,9 @@
 			},
 			async randomImage(dur: number, loop = false) {
 				const myImg = this.$refs.myImg as HTMLImageElement,
-					textDiv = this.mainText!.$refs.textDiv,
-					textDivSub = this.mainText!.$refs.textDivSub,
-					githubSpin = this.githubButton!.$refs.githubSpin,
+					textDiv = this.mTxt!.$refs.textDiv,
+					textDivSub = this.mTxt!.$refs.textDivSub,
+					githubSpin = this.ghBtn!.$refs.githubSpin,
 					imagesUrl = jpgFiles.filter((i: string) => i.includes('wallpaper')),
 					variables = variablesStore();
 				let images: string[] = [];
