@@ -8,5 +8,5 @@
 		"strict": true,
 		"forceConsistentCasingInFileNames": true
 	},
-	"include": ["vite.config.ts", "plugins/**/*.ts", "./types.ts"]
+	"include": ["vite.config.ts", "plugins/**/*.ts"]
 }

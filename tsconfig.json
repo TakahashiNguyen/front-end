@@ -20,7 +20,7 @@
 		"noFallthroughCasesInSwitch": true,
 		"useUnknownInCatchVariables": true
 	},
-	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "types.ts"],
+	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
 	"references": [
 		{
 			"path": "./tsconfig.node.json"

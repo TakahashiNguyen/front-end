@@ -1,4 +1,4 @@
-import './utils';
+import { sleep } from './utils';
 
 export async function getFromUrl(url: string): Promise<string> {
 	return fetch(url)
