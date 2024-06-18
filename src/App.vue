@@ -1,4 +1,4 @@
-<style scoped>
+<style scoped lang="scss">
 	.blurBackground {
 		@apply bg-white/[.64] dark:bg-black/[.64];
 	}
@@ -14,6 +14,8 @@
 	}
 	.h-content {
 		height: calc(100vh - var(--nav-height));
+		@apply bg-white/[.32] dark:bg-black/[.32];
+		backdrop-filter: blur(1vw);
 	}
 	.h-nav {
 		height: var(--nav-height);
@@ -57,7 +59,7 @@
 				</label>
 			</nav>
 
-			<main class="blurBackground h-content">
+			<main class="h-content">
 				<RouterView />
 			</main>
 		</div>

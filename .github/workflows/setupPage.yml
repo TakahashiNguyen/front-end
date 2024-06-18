@@ -30,8 +30,7 @@ jobs:
     steps:
       - uses: TakahashiNguyen/cache-apt-pkgs-action@master
         with:
-          packages: webp ffmpeg libatlas-base-dev
-          version: 1
+          packages: webp ffmpeg 
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up Node
