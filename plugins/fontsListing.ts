@@ -1,5 +1,5 @@
 import { Plugin } from 'vite';
-import { getAllFilesRecursive } from './utils';
+import { getAllFilesRecursive, writeToFile } from './utils';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -25,7 +25,7 @@ export default function fontsListing(): Plugin {
 					});
 				};
 
-			fs.writeFileSync(outputFile, '');
+			writeToFile(outputFile, '');
 			['otf', 'ttf'].forEach((v: string) => getFonts(v));
 		},
 	};

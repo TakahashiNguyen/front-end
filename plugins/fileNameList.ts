@@ -1,7 +1,6 @@
 import { Plugin } from 'vite';
-import { getAllFilesRecursive } from './utils';
+import { getAllFilesRecursive, writeToFile } from './utils';
 import * as path from 'path';
-import * as fs from 'fs';
 
 export default function fileListPlugin(): Plugin {
 	return {
@@ -10,7 +9,7 @@ export default function fileListPlugin(): Plugin {
 			const getFilesInFolder = (ext: string) => {
 				const folderPath = `./public/.${ext}`,
 					fileNames = getAllFilesRecursive(folderPath);
-				fs.writeFileSync(
+				writeToFile(
 					path.join(__dirname, `/../src/ts/assets/${ext}Files.ts`),
 					`export const ${ext}Files = ['${fileNames.map(i => `./${i}`).join("',\n'")}']`,
 				);
