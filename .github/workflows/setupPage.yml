@@ -28,6 +28,10 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - uses: TakahashiNguyen/cache-apt-pkgs-action@master
+        with:
+          packages: webp ffmpeg libatlas-base-dev
+          version: 1
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up Node
@@ -44,8 +48,26 @@ jobs:
             ./node_modules
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
           restore-keys: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
+      - name: Generate OGG files
+        working-directory: ./public/.wav
+        run: |
+          mkdir ../.flac 
+          find . -type f -iname "*.wav" -exec sh -c '
+            output_dir="../.flac/$(echo $(dirname {}) | cut -c 3-)"
+            mkdir -p $output_dir
+            ffmpeg -i "{}" -b:a 112k -c:a flac "$output_dir/$(basename {} .wav).flac"
+          ' \;
+      - name: Generate WEBP files
+        working-directory: ./public/.jpg/
+        run: |
+          mkdir ../.webp
+          find . -type f -iname "*.jpg" -exec sh -c '
+            output_dir="../.webp/$(echo $(dirname {}) | cut -c 3-)"
+            mkdir -p $output_dir
+            cwebp -q 10 "{}" -o "$output_dir/$(basename {} .jpg).webp" 
+          ' \;
       - name: Install dependencies
-        run: npm i && npm ci
+        run: npm i --package-lock-only && npm ci
       - name: Build
         run: npm run build
       - name: Setup Pages
