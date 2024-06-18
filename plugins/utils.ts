@@ -3,26 +3,30 @@ import * as fs from 'fs';
 import './types';
 
 export function getAllFilesRecursive(dirPath: string): string[] {
-	const files: string[] = [],
-		entries = fs.readdirSync(dirPath);
+	try {
+		const files: string[] = [],
+			entries = fs.readdirSync(dirPath);
 
-	for (const entry of entries) {
-		const fullPath = path.join(dirPath, entry),
-			stats = fs.statSync(fullPath);
+		for (const entry of entries) {
+			const fullPath = path.join(dirPath, entry),
+				stats = fs.statSync(fullPath);
 
-		if (stats.isDirectory()) {
-			files.push(...getAllFilesRecursive(fullPath));
-		} else {
-			files.push(
-				fullPath
-					.split(process.platform === 'win32' ? '\\' : '/')
-					.slice(1)
-					.join('/'),
-			);
+			if (stats.isDirectory()) {
+				files.push(...getAllFilesRecursive(fullPath));
+			} else {
+				files.push(
+					fullPath
+						.split(process.platform === 'win32' ? '\\' : '/')
+						.slice(1)
+						.join('/'),
+				);
+			}
 		}
-	}
 
-	return files;
+		return files;
+	} catch (error) {
+		return [];
+	}
 }
 
 export function slinceFileAt(file: string, line: string) {
