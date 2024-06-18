@@ -66,6 +66,7 @@
 
 <script lang="ts">
 	import { ref } from 'vue';
+	import './ts/plugins/types';
 	import LoadingPane from './components/core/loadingPane.vue';
 	import SlidingBackgroundImage from './components/core/slidingBackgroundImage.vue';
 

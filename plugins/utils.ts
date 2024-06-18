@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import '../types';
+import './types';
 
 export function getAllFilesRecursive(dirPath: string): string[] {
 	const files: string[] = [],
@@ -13,9 +13,21 @@ export function getAllFilesRecursive(dirPath: string): string[] {
 		if (stats.isDirectory()) {
 			files.push(...getAllFilesRecursive(fullPath));
 		} else {
-			files.push(fullPath.split('\\').slice(1).join('/'));
+			files.push(
+				fullPath
+					.split(process.platform === 'win32' ? '\\' : '/')
+					.slice(1)
+					.join('/'),
+			);
 		}
 	}
 
 	return files;
+}
+
+export function slinceFileAt(file: string, line: string) {
+	const content = fs.readFileSync(path.join(__dirname, file)).toString().split('\n'),
+		targetLine = content.findIndex(l => l.includes(line));
+
+	return { f: content.slice(0, targetLine), s: content.slice(targetLine + 1) };
 }

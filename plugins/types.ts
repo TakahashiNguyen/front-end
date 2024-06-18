@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 interface Array<T> {
 	random(): Array<T>;
 	get(subString: string): Array<T>;
@@ -15,6 +14,7 @@ interface Number {
 	a(): number; // abs()
 }
 
+type Color = [number, number, number];
 type GeneralHTML = HTMLElement & HTMLCanvasElement & HTMLImageElement;
 
 Array.prototype.get = function (subString: string) {
@@ -41,5 +41,3 @@ Number.prototype.r = function () {
 Number.prototype.a = function () {
 	return Math.abs(Number(this));
 };
-
-type Color = [number, number, number];

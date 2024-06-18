@@ -1,7 +1,6 @@
 import './scss/style.scss';
 import './scss/scrollbar.scss';
 import './scss/fonts.scss';
-import '../types';
 import App from './App.vue';
 import { createMemoryHistory, createRouter } from 'vue-router';
 import BootstrapTest from './components/BootstrapTest.vue';
