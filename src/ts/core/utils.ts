@@ -40,7 +40,14 @@ export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, 
 				reader.readAsText(data);
 				while (reader.readyState !== 2) await sleep(100);
 				return reader.result as string;
-			});
+			}),
+	randomString = (length = 10): string => {
+		var ou = '';
+		do {
+			ou += 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'[getRandomInt(52)];
+		} while (length-- > 0);
+		return ou;
+	};
 
 // local consts
 const luckyColor = [getRandomInt(13) - 6, getRandomInt(13) - 6, getRandomInt(13) - 6];
