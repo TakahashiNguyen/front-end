@@ -15,6 +15,7 @@
 </template>
 
 <script lang="ts">
+	//@ts-ignore
 	import { jpgFiles } from '../../ts/assets/jpgFiles';
 	import { fade } from '../../ts/core/Animation';
 	import { fetchDataUrl, getRandomInt, hexToRgb, rgbToHex, sleep } from '../../ts/core/utils';
@@ -118,7 +119,7 @@
 					variables = variablesStore();
 				let images: string[] = [];
 				images.length = imagesUrl.length;
-				imagesUrl.map(async (v, i) => fetchDataUrl(v).then((o: string) => (images[i] = o)));
+				imagesUrl.map(async (v: string, i: number) => fetchDataUrl(v).then((o: string) => (images[i] = o)));
 
 				var currentIndex = images.indexOf(myImg.src);
 				variables.randomImageDelayLeft = 100;

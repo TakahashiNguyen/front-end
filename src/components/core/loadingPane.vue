@@ -27,6 +27,7 @@
 <script lang="ts">
 	import { Howl } from 'howler';
 	import { fade } from '../../ts/core/Animation';
+	//@ts-ignore
 	import { wavFiles } from '../../ts/assets/wavFiles';
 
 	const startupSong = wavFiles.get('startup').random();
