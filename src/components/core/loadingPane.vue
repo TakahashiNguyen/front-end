@@ -33,23 +33,27 @@
 	import { Howl } from 'howler';
 	import { fade } from '../../ts/core/Animation';
 	import { ref } from 'vue';
+	//@ts-ignore
 	import { mp3Files } from '../../ts/assets/mp3Files';
+
+	const startupAudio = mp3Files.get('startup').random();
 
 	export default {
 		setup() {
-			const loadingPage = ref<HTMLElement>(),
-				audio = ref<Howl>(
-					new Howl({
-						src: mp3Files.get('startup').random(),
-						volume: 1,
-						autoplay: true,
-					}),
-				);
-
-			return { loadingPage, audio };
+			const loadingPage = ref<HTMLElement>();
+			return { loadingPage };
 		},
 		mounted() {
 			this.audio.once('load', this.fadePane);
+			this.audio.play();
+		},
+		data() {
+			const audio = new Howl({
+				src: startupAudio,
+				volume: 1,
+			});
+
+			return { audio };
 		},
 		methods: {
 			fadePane() {
