@@ -47,7 +47,7 @@ jobs:
             ./node_modules
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
           restore-keys: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
-      - name: Generate OGG files
+      - name: Generate flac files
         working-directory: ./public/.wav
         run: |
           mkdir ../.flac 
@@ -74,7 +74,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: './dist'
       - name: Deploy to GitHub Pages
