@@ -15,8 +15,6 @@
 </template>
 
 <script lang="ts">
-	//@ts-ignore
-	import { jpgFiles } from '../../ts/assets/jpgFiles';
 	import { fade } from '../../ts/core/Animation';
 	import { fetchDataUrl, getRandomInt, hexToRgb, rgbToHex, sleep } from '../../ts/core/utils';
 	import { htmlStylesStore } from '../../stores/htmlStyles';
@@ -27,6 +25,7 @@
 	import MainText from '../utils/mainText.vue';
 	import ContentAvisory from '../utils/contentAdvisory.vue';
 	import { ref } from 'vue';
+	import { webpFiles } from '../../ts/assets/webpFiles';
 
 	const randomImageDuration = 23;
 
@@ -115,7 +114,7 @@
 					textDiv = this.mTxt!.$refs.textDiv,
 					textDivSub = this.mTxt!.$refs.textDivSub,
 					githubSpin = this.ghBtn!.$refs.githubSpin,
-					imagesUrl = jpgFiles.filter((i: string) => i.includes('wallpaper')),
+					imagesUrl = webpFiles.filter((i: string) => i.includes('wallpaper')),
 					variables = variablesStore();
 				let images: string[] = [];
 				images.length = imagesUrl.length;

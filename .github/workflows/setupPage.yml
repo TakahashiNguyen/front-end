@@ -30,7 +30,7 @@ jobs:
     steps:
       - uses: TakahashiNguyen/cache-apt-pkgs-action@master
         with:
-          packages: webp ffmpeg 
+          packages: webp ffmpeg
       - name: Checkout
         uses: actions/checkout@v4
       - name: Set up Node
@@ -67,12 +67,14 @@ jobs:
           ' \;
       - name: Install dependencies
         run: npm i --package-lock-only && npm ci
+      - name: Format code
+        run: npm run prettier
       - name: Build
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v2
         with:
           path: './dist'
       - name: Deploy to GitHub Pages

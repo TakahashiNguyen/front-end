@@ -15,7 +15,7 @@ export default function fileListPlugin(): Plugin {
 				);
 			};
 
-			['wav', 'jpg', 'webp'].forEach((value: string) => getFilesInFolder(value));
+			['wav', 'jpg', 'webp', 'flac'].forEach((value: string) => getFilesInFolder(value));
 		},
 	};
 }
