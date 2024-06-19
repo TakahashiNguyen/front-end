@@ -37,7 +37,10 @@ export function slinceFileAt(file: string, line: string) {
 }
 
 export function writeToFile(filePath: string, content: string) {
-	const directoryPath = filePath.substring(0, filePath.lastIndexOf(process.platform === 'win32' ? '\\' : '/'));
+	const directoryPath = filePath.substring(
+		0,
+		filePath.lastIndexOf(process.platform === 'win32' ? '\\' : '/'),
+	);
 
 	if (!fs.existsSync(directoryPath)) {
 		fs.mkdirSync(directoryPath, { recursive: true });

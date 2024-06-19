@@ -3,7 +3,8 @@
 		ref="myImg"
 		class="fixed -z-40 full scale-[1.4] animate-slide touch-none object-cover blur-sm lg:scale-[1.1] lg:animate-none lg:object-contain lg:blur"
 		crossorigin="anonymous"
-		@load="changeTextColor" />
+		@load="changeTextColor"
+	/>
 
 	<div class="relative">
 		<SpotifyCurrentSong />
@@ -16,7 +17,13 @@
 
 <script lang="ts">
 	import { fade } from '../../ts/core/Animation';
-	import { fetchDataUrl, getRandomInt, hexToRgb, rgbToHex, sleep } from '../../ts/core/utils';
+	import {
+		fetchDataUrl,
+		getRandomInt,
+		hexToRgb,
+		rgbToHex,
+		sleep,
+	} from '../../ts/core/utils';
 	import { htmlStylesStore } from '../../stores/htmlStyles';
 	import { variablesStore } from '../../stores/variables';
 	import GithubButton from '../utils/githubButton.vue';
@@ -33,12 +40,9 @@
 	export default {
 		setup() {
 			const mTxt = ref<typeof MainText>(),
-				ghBtn = ref<typeof GithubButton>(),
-				imagesUrl = webpFiles.filter((i: string) => i.includes('wallpaper'));
+				ghBtn = ref<typeof GithubButton>();
 
 			let images: string[] = [];
-			images.length = imagesUrl.length;
-			imagesUrl.map(async (v: string, i: number) => fetchDataUrl(v).then((o: string) => (images[i] = o)));
 
 			return { mTxt, ghBtn, images };
 		},
@@ -50,6 +54,11 @@
 			ContentAvisory,
 		},
 		mounted() {
+			const imagesUrl = webpFiles.filter((i: string) => i.includes('wallpaper'));
+			this.images.length = imagesUrl.length;
+			imagesUrl.map(async (v: string, i: number) =>
+				fetchDataUrl(v).then((o: string) => (this.images[i] = o)),
+			);
 			this.randomImage(randomImageDuration, true);
 		},
 		props: {
@@ -59,7 +68,9 @@
 			},
 		},
 		methods: {
-			getAverageRGB(img: HTMLImageElement): { r: number; g: number; b: number; colorSum: number } | null {
+			getAverageRGB(
+				img: HTMLImageElement,
+			): { r: number; g: number; b: number; colorSum: number } | null {
 				const canvas = document.createElement('canvas'),
 					context = canvas.getContext('2d')!,
 					canvaSize = Math.min(img.width, img.height) / 14;
@@ -87,13 +98,20 @@
 				const averageGreen = Math.round(greenSum / pixelCount);
 				const averageBlue = Math.round(blueSum / pixelCount);
 
-				return { r: averageRed, g: averageGreen, b: averageBlue, colorSum: colorSum / (canvas.width * canvas.height) };
+				return {
+					r: averageRed,
+					g: averageGreen,
+					b: averageBlue,
+					colorSum: colorSum / (canvas.width * canvas.height),
+				};
 			},
 			updateTextDecoration(imgBackgroudBrightness: number) {
 				const htmlStyles = htmlStylesStore(),
 					textSqrWidth = this.mTxt!.$refs.textSqr.clientWidth,
 					updateColor = (imgBackgroudBrightness > 128 ? 1 : -1) * 74,
-					color = rgbToHex(hexToRgb(htmlStyles.textNameColor, updateColor, updateColor, updateColor)),
+					color = rgbToHex(
+						hexToRgb(htmlStyles.textNameColor, updateColor, updateColor, updateColor),
+					),
 					siz = (e: number) => (textSqrWidth / (1941 * 2)) * e;
 				htmlStyles.outlineColor = htmlStyles.textNameColor;
 				htmlStyles.textNameShadow = `

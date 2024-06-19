@@ -26,19 +26,40 @@
 			<div
 				class="absolute z-40 flex flex-col middle-div scale-125 -skew-y-6 lg:scale-100"
 				:style="`text-shadow:${htmlStyles.textNameShadow}; color:${htmlStyles.textNameColor};`"
-				ref="textDiv">
-				<div class="cursor-help hover:animate-pulse flex flex-col justify-items-stretch" @click="variables.randomImageDelayLeft = 0">
-					<p ref="nickName" class="capitalize justify-start flex font-['AnonymousPro'] scale-nickName"></p>
-					<p ref="name" class="capitalize scale-mainName" :style="`font-family: ${luckyFont}`"></p>
-					<p ref="myHashTag" class="flex justify-end font-['JetBrainsMono'] scale-hashTag"></p>
+				ref="textDiv"
+			>
+				<div
+					class="cursor-help hover:animate-pulse flex flex-col justify-items-stretch"
+					@click="variables.randomImageDelayLeft = 0"
+				>
+					<p
+						ref="nickName"
+						class="capitalize justify-start flex font-nickName scale-nickName"
+					></p>
+					<p
+						ref="name"
+						class="capitalize scale-mainName"
+						:style="`font-family: ${luckyFont}, Copperplate, Papyrus, fantasy`"
+					></p>
+					<p ref="myHashTag" class="flex justify-end font-hashTag scale-hashTag"></p>
 				</div>
 			</div>
 
-			<div class="-z-50 flex flex-col middle-div opacity-0 scale-125 -skew-y-6 lg:scale-100" ref="textDivSub">
+			<div
+				class="-z-50 flex flex-col middle-div opacity-0 scale-125 -skew-y-6 lg:scale-100"
+				ref="textDivSub"
+			>
 				<div class="flex flex-col justify-items-stretch">
-					<p ref="nickNameSub" class="capitalize justify-start flex font-['AnonymousPro'] scale-nickName"></p>
-					<p ref="nameSub" class="capitalize scale-mainName" :style="`font-family: ${luckyFont}`"></p>
-					<p ref="myHashTagSub" class="flex justify-end font-['JetBrainsMono'] scale-hashTag"></p>
+					<p
+						ref="nickNameSub"
+						class="capitalize justify-start flex font-nickName scale-nickName"
+					></p>
+					<p
+						ref="nameSub"
+						class="capitalize scale-mainName"
+						:style="`font-family: ${luckyFont}, Copperplate, Papyrus, fantasy`"
+					></p>
+					<p ref="myHashTagSub" class="flex justify-end font-hashTag scale-hashTag"></p>
 				</div>
 			</div>
 		</div>
@@ -79,7 +100,11 @@
 				.forEach(i => ((i[1] as HTMLElement).textContent = this.$props.myNickName));
 			Object.entries(obj)
 				.filter(i => i[0].includes('myHashTag'))
-				.forEach(i => ((i[1] as HTMLElement).textContent = (this.$props.hashTag !== '' ? '#' : '') + this.$props.hashTag));
+				.forEach(
+					i =>
+						((i[1] as HTMLElement).textContent =
+							(this.$props.hashTag !== '' ? '#' : '') + this.$props.hashTag),
+				);
 		},
 		props: {
 			myName: {

@@ -9,7 +9,8 @@
 				<div
 					class="rounded-full outline-dashed outline-2 outline-offset-2 h-9 w-9"
 					:style="`outline-color: ${htmlStyles.outlineColor};`"
-					ref="githubSpin"></div>
+					ref="githubSpin"
+				></div>
 			</div>
 		</div>
 	</div>
@@ -27,7 +28,12 @@
 		},
 		methods: {
 			buttonOpen() {
-				window.open(getRandomInt(6) ? 'https://github.com/TakahashiNguyen' : 'https://www.youtube.com/@vtv24', '_blank');
+				window.open(
+					getRandomInt(6)
+						? 'https://github.com/TakahashiNguyen'
+						: 'https://www.youtube.com/@vtv24',
+					'_blank',
+				);
 			},
 		},
 	};

@@ -18,7 +18,9 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
-		"useUnknownInCatchVariables": true
+		"useUnknownInCatchVariables": true,
+		/* Custom plugins */
+		"types": ["unplugin-fonts/client"]
 	},
 	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
 	"references": [

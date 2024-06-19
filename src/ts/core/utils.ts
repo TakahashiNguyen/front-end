@@ -3,7 +3,14 @@ export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, 
 	getRandomInt = (max: number) => Math.floor(Math.random() * max),
 	rgbToHex = (i: Color) =>
 		'#' +
-		((1 << 24) | ((i[0] + luckyColor[0]) << 16).a() | ((i[1] + luckyColor[1]) << 8).a() | (i[2] + luckyColor[2]).a()).toString(16).slice(1),
+		(
+			(1 << 24) |
+			((i[0] + luckyColor[0]) << 16).a() |
+			((i[1] + luckyColor[1]) << 8).a() |
+			(i[2] + luckyColor[2]).a()
+		)
+			.toString(16)
+			.slice(1),
 	hexToRgb = (hex: string, rr = 0, gg = 0, bb = 0) => {
 		const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex || '#000000')!;
 		return [

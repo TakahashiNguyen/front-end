@@ -1,11 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 
 import daisyui from 'daisyui';
+import * as defaultTheme from 'tailwindcss/defaultTheme';
 
 export default {
-	darkMode: ['variant', ['@media (prefers-color-scheme: dark) { &:not(.light *) }', '&:is(.dark *)']],
+	darkMode: [
+		'variant',
+		['@media (prefers-color-scheme: dark) { &:not(.light *) }', '&:is(.dark *)'],
+	],
 	content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
 	theme: {
+		fontFamily: {
+			nickName: ['AnonymousPro', ...defaultTheme.fontFamily.sans],
+			hashTag: ['JetBrainsMono', ...defaultTheme.fontFamily.mono],
+		},
 		extend: {
 			keyframes: {
 				slide: {

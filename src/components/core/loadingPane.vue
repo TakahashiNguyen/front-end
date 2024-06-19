@@ -9,16 +9,21 @@
 </style>
 
 <template>
-	<div class="fixed cursor-pointer z-[100] bg-white dark:bg-black h-lvh w-full" ref="loadingPage">
+	<div
+		class="fixed cursor-pointer z-[100] bg-white dark:bg-black h-lvh w-full"
+		ref="loadingPage"
+	>
 		<div class="absolute z-50 full select-none bg-transparent"></div>
 		<div class="absolute flex square">
 			<picture class="flex middle-div full">
 				<img
 					src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Penguin.png"
-					class="middle-div dObject-dark w-[18%] h-[18%]" />
+					class="middle-div dObject-dark w-[18%] h-[18%]"
+				/>
 				<img
 					src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Cat%20Face.png"
-					class="middle-div dObject w-[18%] h-[18%]" />
+					class="middle-div dObject w-[18%] h-[18%]"
+				/>
 			</picture>
 		</div>
 	</div>
@@ -27,36 +32,29 @@
 <script lang="ts">
 	import { Howl } from 'howler';
 	import { fade } from '../../ts/core/Animation';
-	//@ts-ignore
+	import { ref } from 'vue';
 	import { mp3Files } from '../../ts/assets/mp3Files';
 
-	const startupSong = mp3Files.get('startup').random();
-
 	export default {
-		setup() {},
+		setup() {
+			const loadingPage = ref<HTMLElement>(),
+				audio = ref<Howl>(
+					new Howl({
+						src: mp3Files.get('startup').random(),
+						volume: 1,
+						autoplay: true,
+					}),
+				);
+
+			return { loadingPage, audio };
+		},
 		mounted() {
-			this.startupSound();
+			this.audio.once('load', this.fadePane);
 		},
 		methods: {
-			startupSound() {
-				const sound = new Howl({
-					src: startupSong,
-					volume: 1,
-					onplay: () => {
-						try {
-							const loadingPage = this.$refs.loadingPage as HTMLElement;
-
-							fade(loadingPage, 3, 1, 0, 144, () => {
-								loadingPage.classList.add('hidden');
-							});
-						} catch (e) {}
-					},
-					onplayerror: function () {
-						sound.once('unlock', function () {
-							sound.play();
-						});
-					},
-					autoplay: true,
+			fadePane() {
+				fade(this.loadingPage!, 3, 1, 0, 144, () => {
+					this.loadingPage!.classList.add('hidden');
 				});
 			},
 		},

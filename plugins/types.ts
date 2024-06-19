@@ -1,5 +1,5 @@
 interface Array<T> {
-	random(): Array<T>;
+	random(): T;
 	get(subString: string): Array<T>;
 	last(): T;
 }

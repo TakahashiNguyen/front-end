@@ -7,7 +7,14 @@
 	</div>
 
 	<div class="ds-dropdown">
-		<button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="true"> Dropdown button </button>
+		<button
+			class="btn btn-primary dropdown-toggle"
+			type="button"
+			data-bs-toggle="dropdown"
+			aria-expanded="true"
+		>
+			Dropdown button
+		</button>
 		<ul class="dropdown-menu">
 			<li><a class="ds-dropdown-content" href="#">Action</a></li>
 			<li><a class="dropdown-item" href="#">Another action</a></li>
