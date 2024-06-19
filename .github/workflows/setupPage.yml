@@ -21,11 +21,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: TakahashiNguyen/cache-apt-pkgs-action@master
@@ -54,7 +50,7 @@ jobs:
           find . -type f -iname "*.wav" -exec sh -c '
             output_dir="../.flac/$(echo $(dirname {}) | cut -c 3-)"
             mkdir -p $output_dir
-            ffmpeg -i "{}" -b:a 40K -c:a flac "$output_dir/$(basename {} .wav).flac"
+            ffmpeg -i "{}"  -map 0:a:0 -b:a 40k -c:a flac "$output_dir/$(basename {} .wav).flac"
           ' \;
       - name: Generate WEBP files
         working-directory: ./public/.jpg/
@@ -71,6 +67,22 @@ jobs:
         run: npm run prettier
       - name: Build
         run: npm run build
+      - uses: actions/upload-artifact@master
+        with:
+          name: github-page
+          path: ./dist
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    if: ${{ !github.event.act }}
+    steps:
+      - uses: actions/download-artifact@master
+        with:
+          name: github-page
+          path: ./dist
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
