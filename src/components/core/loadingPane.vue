@@ -28,9 +28,9 @@
 	import { Howl } from 'howler';
 	import { fade } from '../../ts/core/Animation';
 	//@ts-ignore
-	import { flacFiles } from '../../ts/assets/flacFiles';
+	import { mp3Files } from '../../ts/assets/mp3Files';
 
-	const startupSong = flacFiles.get('startup').random();
+	const startupSong = mp3Files.get('startup').random();
 
 	export default {
 		setup() {},
@@ -46,7 +46,7 @@
 						try {
 							const loadingPage = this.$refs.loadingPage as HTMLElement;
 
-							fade(loadingPage, sound.duration(), 1, 0, 144, () => {
+							fade(loadingPage, 3, 1, 0, 144, () => {
 								loadingPage.classList.add('hidden');
 							});
 						} catch (e) {}

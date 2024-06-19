@@ -8,6 +8,7 @@ on:
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+  pull_request:
 
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
@@ -43,19 +44,17 @@ jobs:
             ./node_modules
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
           restore-keys: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
-      - name: Generate flac files
+      - name: Generate mp3 files
         working-directory: ./public/.wav
         run: |
-          mkdir ../.flac 
           find . -type f -iname "*.wav" -exec sh -c '
-            output_dir="../.flac/$(echo $(dirname {}) | cut -c 3-)"
+            output_dir="../.mp3/$(echo $(dirname {}) | cut -c 3-)"
             mkdir -p $output_dir
-            ffmpeg -i "{}"  -map 0:a:0 -b:a 40k -c:a flac "$output_dir/$(basename {} .wav).flac"
+            ffmpeg -i "{}" -codec:a libmp3lame -qscale:a 9 "$output_dir/$(basename {} .wav).mp3"
           ' \;
       - name: Generate WEBP files
         working-directory: ./public/.jpg/
         run: |
-          mkdir ../.webp
           find . -type f -iname "*.jpg" -exec sh -c '
             output_dir="../.webp/$(echo $(dirname {}) | cut -c 3-)"
             mkdir -p $output_dir
@@ -72,12 +71,12 @@ jobs:
           name: github-page
           path: ./dist
   deploy:
+    if: ${{ !github.event.act }}
     needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    if: ${{ !github.event.act }}
     steps:
       - uses: actions/download-artifact@master
         with:
