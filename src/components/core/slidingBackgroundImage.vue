@@ -33,9 +33,14 @@
 	export default {
 		setup() {
 			const mTxt = ref<typeof MainText>(),
-				ghBtn = ref<typeof GithubButton>();
+				ghBtn = ref<typeof GithubButton>(),
+				imagesUrl = webpFiles.filter((i: string) => i.includes('wallpaper'));
 
-			return { mTxt, ghBtn };
+			let images: string[] = [];
+			images.length = imagesUrl.length;
+			imagesUrl.map(async (v: string, i: number) => fetchDataUrl(v).then((o: string) => (images[i] = o)));
+
+			return { mTxt, ghBtn, images };
 		},
 		components: {
 			GithubButton,
@@ -115,11 +120,8 @@
 					textDiv = this.mTxt!.$refs.textDiv,
 					textDivSub = this.mTxt!.$refs.textDivSub,
 					githubSpin = this.ghBtn!.$refs.githubSpin,
-					imagesUrl = webpFiles.filter((i: string) => i.includes('wallpaper')),
-					variables = variablesStore();
-				let images: string[] = [];
-				images.length = imagesUrl.length;
-				imagesUrl.map(async (v: string, i: number) => fetchDataUrl(v).then((o: string) => (images[i] = o)));
+					variables = variablesStore(),
+					images = this.images;
 
 				var currentIndex = images.indexOf(myImg.src);
 				variables.randomImageDelayLeft = 100;
