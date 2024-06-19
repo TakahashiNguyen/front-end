@@ -25,3 +25,4 @@ dist-ssr
 # Addition files
 package-lock.json
 src/ts/assets/**Files.ts
+src/scss/fonts.scss

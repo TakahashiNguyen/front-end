@@ -27,6 +27,7 @@
 <script lang="ts">
 	import { Howl } from 'howler';
 	import { fade } from '../../ts/core/Animation';
+	//@ts-ignore
 	import { flacFiles } from '../../ts/assets/flacFiles';
 
 	const startupSong = flacFiles.get('startup').random();

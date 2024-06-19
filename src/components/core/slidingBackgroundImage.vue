@@ -25,6 +25,7 @@
 	import MainText from '../utils/mainText.vue';
 	import ContentAvisory from '../utils/contentAdvisory.vue';
 	import { ref } from 'vue';
+	//@ts-ignore
 	import { webpFiles } from '../../ts/assets/webpFiles';
 
 	const randomImageDuration = 23;
