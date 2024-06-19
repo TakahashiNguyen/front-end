@@ -62,8 +62,6 @@ jobs:
           ' \;
       - name: Install dependencies
         run: npm i --package-lock-only && npm ci
-      - name: Format code
-        run: npm run prettier
       - name: Build
         run: npm run build
       - uses: actions/upload-artifact@master

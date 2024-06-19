@@ -51,6 +51,12 @@
 			const audio = new Howl({
 				src: startupAudio,
 				volume: 1,
+				autoplay: true,
+				onplayerror: function () {
+					audio.once('unlock', function () {
+						audio.play();
+					});
+				},
 			});
 
 			return { audio };

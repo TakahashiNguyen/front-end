@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="absolute br-8 z-50 cursor-zoom-in origin-bottom-right sm:translate-x-0 sm:translate-y-0 sm:rotate-0 translate-y-[-112px] rotate-[-90deg]"
-		@click="audioPlayer"
+		@click="LoadingPane.data"
 	>
 		<picture>
 			<img
@@ -20,11 +20,8 @@
 	import LoadingPane from '../core/loadingPane.vue';
 
 	export default {
-		methods: {
-			audioPlayer() {
-				//@ts-ignore
-				LoadingPane.data().audio.play();
-			},
+		setup() {
+			return { LoadingPane };
 		},
 	};
 </script>
