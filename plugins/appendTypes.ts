@@ -5,21 +5,6 @@ import * as path from 'path';
 const conflictMarker = '<<<<<<< HEAD\n';
 
 /**
- * find line that has subStr value
- * @param {string[]} arr - the array to scan
- * @param {string} subStr - the string to find
- * @return {number[]} array of arr's index that it contain subStr
- */
-function findLine(arr: string[], subStr: string): number[] {
-	const indices: number[] = [];
-	arr.forEach((str, index) => {
-		if (str.indexOf(subStr) !== -1) indices.push(index);
-	});
-	if (!indices.length) indices.push(0);
-	return indices;
-}
-
-/**
  * commit conflict to array
  * @param {string[]} arr - array that contain commit conflicts
  * @param {string} first - first conflict
@@ -43,81 +28,116 @@ async function isConflict(
 	file2Path: string,
 	outputFilePath: string,
 ): Promise<boolean> {
-	const nlIndicator = '///nl///',
-		file1Lines = fs
-			.readFileSync(file1Path)
-			.toString()
-			.split(/\r?\n/)
-			.map(i => (i === '' ? nlIndicator : i)),
-		file2Lines = fs
-			.readFileSync(file2Path)
-			.toString()
-			.split(/\r?\n/)
-			.map(i => (i === '' ? nlIndicator : i)),
+	const nlInd = '///nl///',
+		tabInd = '///tab///',
+		strictStr = (input: string): string => {
+			return input
+				.replace(new RegExp('\t', 'g'), tabInd)
+				.replace(new RegExp('\n', 'g'), nlInd)
+				.replace(new RegExp(tabInd, 'g'), '')
+				.replace(new RegExp(nlInd, 'g'), '');
+		},
+		/**
+		 * format input string
+		 * @param {string} input - input string
+		 * @return {string} formated string
+		 */
+		zipStr = (input: string): string => {
+			return input
+				.replace(new RegExp('\t', 'g'), tabInd)
+				.replace(new RegExp('\n', 'g'), nlInd);
+		},
+		/**
+		 * unformat input string
+		 * @param {string} input - input string
+		 * @return {string} unformat string
+		 */
+		unZipStr = (input: string): string => {
+			return input
+				.replace(new RegExp(nlInd, 'g'), '\n')
+				.replace(new RegExp(tabInd, 'g'), '\t')
+				.replace(new RegExp('\n\n', 'g'), '\n');
+		},
+		file1Lines = zipStr(fs.readFileSync(file1Path).toString())
+			.split(nlInd)
+			.map(i => (i === '' ? nlInd : i)),
+		file2Lines = zipStr(fs.readFileSync(file2Path).toString())
+			.split(nlInd)
+			.map(i => (i === '' ? nlInd : i)),
+		/**
+		 * find line that has subStr value
+		 * @param {string[]} arr - the array to scan
+		 * @param {string} subStr - the string to find
+		 * @return {number[]} array of arr's index that it contain subStr
+		 */
+		findLine = (arr: string[], subStr: string): number[] => {
+			const indices: number[] = [];
+			subStr = unZipStr(subStr);
+			arr.forEach((str, index) => {
+				if (unZipStr(str).indexOf(subStr) !== -1) indices.push(index);
+			});
+			if (!indices.length) indices.push(0);
+			return indices;
+		},
 		/**
 		 * find conflict between two array
 		 * @param {string[]} arr1 - first array
 		 * @param {string[]} arr2 - second array
 		 * @return {Array<string>} the merge conflict of two file
 		 */
-		findConflict = (arr1: Array<string>, arr2: Array<string>): Array<string> => {
+		findConflict = (arr1: Array<string>, arr2: Array<string>): string => {
 			let mergedLines: string[] = [],
-				inConflict = false,
 				i = 0,
 				j = 0;
 			if (Boolean(arr1.length) != Boolean(arr2.length))
-				return commitConflict(mergedLines, arr1.join('\n'), arr2.join('\n'));
+				return commitConflict(mergedLines, arr1.join(nlInd), arr2.join(nlInd)).join(
+					nlInd,
+				);
 
 			while (i < arr1.length || j < arr2.length) {
-				const line1 = arr1[i++],
-					line2 = arr2[j++];
+				const line1 = arr1[i],
+					line2 = arr2[j];
 
-				if (
-					line1.replace(new RegExp('\t', 'g'), '') ===
-					line2.replace(new RegExp('\t', 'g'), '')
-				) {
+				if (strictStr(line1) === strictStr(line2)) {
 					mergedLines.push(line1);
 				} else {
-					const change1 = findLine(arr1.slice(i - 1), line2)[0],
-						change2 = findLine(arr2.slice(j - 1), line1)[0],
+					const change1 = findLine(arr1.slice(i), line2)[0],
+						change2 = findLine(arr2.slice(j), line1)[0],
 						diffLine = Number(change1 !== change2);
 					if (change1 && change2) {
 						const firstConflict = arr1
-								.slice(i - 1, i + change1 - 1)
-								.concat(...findConflict(arr1.slice(i + change1 - 1), arr2.slice(j - 1))),
+								.slice(i, i + change1)
+								.concat(findConflict(arr1.slice(i + change1), arr2.slice(j))),
 							secondConflict = arr2
-								.slice(j - 1, j + change2 - 1)
-								.concat(...findConflict(arr1.slice(i - 1), arr2.slice(j + change2 - 1)));
+								.slice(j, j + change2)
+								.concat(findConflict(arr1.slice(i), arr2.slice(j + change2)));
 
 						mergedLines.push(
-							...(firstConflict.join().length < secondConflict.join().length
+							...(strictStr(firstConflict.join()).length <
+							strictStr(secondConflict.join()).length
 								? firstConflict
 								: secondConflict),
 						);
-						return mergedLines;
+						return zipStr(mergedLines.join('\n'));
 					} else {
 						commitConflict(
 							mergedLines,
-							arr1.slice(i - 1, i + change1 - diffLine).join('\n'),
-							arr2.slice(j - 1, j + change2 - diffLine).join('\n'),
+							arr1.slice(i, i + change1 + (diffLine ^ 1)).join('\n'),
+							arr2.slice(j, j + change2 + (diffLine ^ 1)).join('\n'),
 						);
 					}
-					(inConflict = true), (i += change1 - diffLine), (j += change2 - diffLine);
+					(i += change1 - diffLine), (j += change2 - diffLine);
 				}
+				i++, j++;
 			}
 
-			return mergedLines !== arr1 ? mergedLines : [];
+			return zipStr(mergedLines.join('\n')) !== zipStr(arr1.join('\n'))
+				? zipStr(mergedLines.join('\n'))
+				: '';
 		};
 
 	const output = findConflict(file1Lines, file2Lines);
-	if (output)
-		fs.writeFileSync(
-			outputFilePath,
-			output
-				.join('\n')
-				.replace(new RegExp(nlIndicator, 'g'), '\n')
-				.replace(new RegExp('\n\n', 'g'), '\n'),
-		);
+	if (output) fs.writeFileSync(outputFilePath, unZipStr(output));
 
 	return output.length > 0;
 }

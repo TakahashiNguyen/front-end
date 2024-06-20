@@ -33,7 +33,7 @@
 	import ContentAvisory from '../utils/contentAdvisory.vue';
 	import { ref } from 'vue';
 	//@ts-ignore
-	import { webpFiles } from '../../ts/assets/webpFiles';
+	import { imageFiles } from '../../ts/assets/imageFiles';
 
 	const randomImageDuration = 23;
 
@@ -54,7 +54,7 @@
 			ContentAvisory,
 		},
 		mounted() {
-			const imagesUrl = webpFiles.filter((i: string) => i.includes('wallpaper'));
+			const imagesUrl = imageFiles.filter((i: string) => i.includes('wallpaper'));
 			this.images.length = imagesUrl.length;
 			imagesUrl.map(async (v: string, i: number) =>
 				fetchDataUrl(v).then((o: string) => (this.images[i] = o)),

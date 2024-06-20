@@ -23,7 +23,7 @@ export type Color = [number, number, number];
 export type GeneralHTML = HTMLElement & HTMLCanvasElement & HTMLImageElement;
 
 Array.prototype.get = function (subString: string) {
-	return this.filter(i => i.includes(subString));
+	return this.filter((i: string) => i.includes(subString));
 };
 Array.prototype.random = function () {
 	return this[Math.floor(Math.random() * this.length)];
