@@ -25,7 +25,7 @@
 		"paths": {
 			"@ts/*": ["src/ts/*"],
 			"@cp/*": ["src/components/*"],
-			"@st/*": ["src@st/*"]
+			"@st/*": ["src/stores/*"]
 		}
 	},
 	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
