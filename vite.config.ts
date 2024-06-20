@@ -6,6 +6,7 @@ import { Plugin } from 'vite';
 import Unfonts from 'unplugin-fonts/vite';
 import { getAllFilesRecursive } from './plugins/utils';
 import { CustomFontFamily } from 'unplugin-fonts/types';
+import path from 'path';
 
 // https://vitejs.dev/config/
 const plugins = [fileListPlugin, appendType],
@@ -48,4 +49,11 @@ export default defineConfig({
 		outDir: 'dist',
 	},
 	base: '/front-end/',
+	resolve: {
+		alias: {
+			'@ts': path.resolve(__dirname, './src/ts'),
+			'@cp': path.resolve(__dirname, './src/components'),
+			'@st': path.resolve(__dirname, './src/stores'),
+		},
+	},
 });

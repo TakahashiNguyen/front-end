@@ -31,10 +31,10 @@
 
 <script lang="ts">
 	import { Howl } from 'howler';
-	import { fade } from '../../ts/core/Animation';
+	import { fade } from '@ts/core/Animation';
 	import { ref } from 'vue';
 	//@ts-ignore
-	import { audioFiles } from '../../ts/assets/audioFiles';
+	import { audioFiles } from '@ts/assets/audioFiles';
 
 	const startupAudio = audioFiles.get('startup').random();
 

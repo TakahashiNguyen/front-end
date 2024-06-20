@@ -17,8 +17,8 @@
 </template>
 
 <script lang="ts">
-	import { getRandomInt } from '../../ts/core/utils';
-	import { htmlStylesStore } from '../../stores/htmlStyles';
+	import { getRandomInt } from '@ts/core/utils';
+	import { htmlStylesStore } from '@st/htmlStyles';
 
 	export default {
 		setup() {

@@ -16,24 +16,18 @@
 </template>
 
 <script lang="ts">
-	import { fade } from '../../ts/core/Animation';
-	import {
-		fetchDataUrl,
-		getRandomInt,
-		hexToRgb,
-		rgbToHex,
-		sleep,
-	} from '../../ts/core/utils';
-	import { htmlStylesStore } from '../../stores/htmlStyles';
-	import { variablesStore } from '../../stores/variables';
-	import GithubButton from '../utils/githubButton.vue';
+	import { fade } from '@ts/core/Animation';
+	import { fetchDataUrl, getRandomInt, hexToRgb, rgbToHex, sleep } from '@ts/core/utils';
+	import { htmlStylesStore } from '@st/htmlStyles';
+	import { variablesStore } from '@st/variables';
+	import GithubButton from '@cp/utils/githubButton.vue';
 	import SpotifyCurrentSong from '../utils/spotifyCurrentSong.vue';
 	import ViewCounter from '../utils/viewCounter.vue';
 	import MainText from '../utils/mainText.vue';
 	import ContentAvisory from '../utils/contentAdvisory.vue';
 	import { ref } from 'vue';
 	//@ts-ignore
-	import { imageFiles } from '../../ts/assets/imageFiles';
+	import { imageFiles } from '@ts/assets/imageFiles';
 
 	const randomImageDuration = 23;
 

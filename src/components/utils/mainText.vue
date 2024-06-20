@@ -67,8 +67,8 @@
 </template>
 
 <script lang="ts">
-	import { htmlStylesStore } from '../../stores/htmlStyles';
-	import { variablesStore } from '../../stores/variables';
+	import { htmlStylesStore } from '@st/htmlStyles';
+	import { variablesStore } from '@st/variables';
 
 	export default {
 		setup() {
