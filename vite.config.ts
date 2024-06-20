@@ -54,6 +54,7 @@ export default defineConfig({
 			'@ts': path.resolve(__dirname, './src/ts'),
 			'@cp': path.resolve(__dirname, './src/components'),
 			'@st': path.resolve(__dirname, './src/stores'),
+			'@sc': path.resolve(__dirname, './src/scss'),
 		},
 	},
 });
