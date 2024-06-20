@@ -1,21 +1,26 @@
-interface Array<T> {
-	random(): T;
-	get(subString: string): Array<T>;
-	last(): T;
-}
-interface String {
-	getElement(): GeneralHTML;
-	getElements(): GeneralHTML[];
-	num(): number;
-}
-interface Number {
-	f(): number; // floor()
-	r(): number; // round()
-	a(): number; // abs()
+import * as path from 'path';
+
+declare global {
+	interface Array<T> {
+		random(): T;
+		get(subString: string): Array<T>;
+		last(): T;
+	}
+	interface String {
+		getElement(): GeneralHTML;
+		getElements(): GeneralHTML[];
+		num(): number;
+		pj(): string;
+	}
+	interface Number {
+		f(): number; // floor()
+		r(): number; // round()
+		a(): number; // abs()
+	}
 }
 
-type Color = [number, number, number];
-type GeneralHTML = HTMLElement & HTMLCanvasElement & HTMLImageElement;
+export type Color = [number, number, number];
+export type GeneralHTML = HTMLElement & HTMLCanvasElement & HTMLImageElement;
 
 Array.prototype.get = function (subString: string) {
 	return this.filter(i => i.includes(subString));
@@ -31,6 +36,9 @@ String.prototype.getElements = function () {
 };
 String.prototype.num = function () {
 	return Number(this);
+};
+String.prototype.pj = function () {
+	return path.join(__dirname, String(this));
 };
 Number.prototype.f = function () {
 	return Math.floor(Number(this));

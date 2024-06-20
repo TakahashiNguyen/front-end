@@ -25,27 +25,25 @@ const plugins = [fileListPlugin, appendType],
 
 export default defineConfig({
 	plugins: [
-		vue(),
-		Unfonts({
-			custom: {
-				families: getFonts(['otf', 'ttf']),
-				display: 'auto',
-				preload: true,
-				prefetch: false,
-				injectTo: 'head',
-			},
-		}),
-	]
-		.concat(
-			plugins.map((i): Plugin => {
+		[
+			vue(),
+			Unfonts({
+				custom: {
+					families: getFonts(['otf', 'ttf']),
+					display: 'auto',
+					preload: true,
+					prefetch: false,
+					injectTo: 'head',
+				},
+			}),
+			...plugins.map((i): Plugin => {
 				return { ...i(), apply: 'serve' };
 			}),
-		)
-		.concat(
-			plugins.map((i): Plugin => {
+			...plugins.map((i): Plugin => {
 				return { ...i(), apply: 'build' };
 			}),
-		),
+		],
+	],
 	build: {
 		outDir: 'dist',
 	},

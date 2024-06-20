@@ -28,3 +28,4 @@ src/ts/assets/**Files.ts
 src/scss/fonts.scss
 **/.mp3
 **/.webp
+types.ts
