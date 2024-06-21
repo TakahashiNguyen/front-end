@@ -97,11 +97,7 @@
 			LoadingPane,
 			SlidingBackgroundImage,
 		},
-		mounted() {
-			// Need debug
-			if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)
-				'textDiv'.getElement().style.color = 'black';
-		},
+		mounted() {},
 		methods: {
 			toggleDarkMode() {
 				isDarkMode.value = !isDarkMode.value;
