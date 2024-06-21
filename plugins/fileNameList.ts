@@ -6,16 +6,16 @@ export default function fileListPlugin(): Plugin {
 	return {
 		name: 'file-list-plugin',
 		async buildStart() {
-			const getFilesInFolder = (ext: string) => {
-				const folderPath = `./public/.${ext}`,
+			const getFilesInFolder = (type: string) => {
+				const folderPath = `./public/${type}`,
 					fileNames = getAllFilesRecursive(folderPath);
 				writeToFile(
-					path.join(__dirname, `/../src/ts/assets/${ext}Files.ts`),
-					`export const ${ext}Files = ['${fileNames.map(i => `./${i}`).join("',\n'")}']`,
+					`/../src/ts/assets/${type}Files.ts`.pj(),
+					`export const ${type}Files = ['${fileNames.map(i => `./${i}`).join("',\n'")}']`,
 				);
 			};
 
-			['wav', 'jpg', 'webp', 'mp3'].forEach((value: string) => getFilesInFolder(value));
+			['audio', 'image'].forEach((value: string) => getFilesInFolder(value));
 		},
 	};
 }

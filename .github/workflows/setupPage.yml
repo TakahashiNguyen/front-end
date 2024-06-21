@@ -45,20 +45,22 @@ jobs:
           key: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
           restore-keys: ${{ runner.os }}-npm-${{ hashFiles('**/package.json') }}
       - name: Generate mp3 files
-        working-directory: ./public/.wav
+        working-directory: ./public/audio
         run: |
-          find . -type f -iname "*.wav" -exec sh -c '
+          find . -type f -iname "*.*" -exec sh -c '
+            FILE={}
             output_dir="../.mp3/$(echo $(dirname {}) | cut -c 3-)"
             mkdir -p $output_dir
-            ffmpeg -i "{}" -codec:a libmp3lame -qscale:a 9 "$output_dir/$(basename {} .wav).mp3"
+            ffmpeg -i "{}" -codec:a libmp3lame -qscale:a 9 "$output_dir/$(basename {} .${FILE##*.}).mp3"
           ' \;
       - name: Generate WEBP files
-        working-directory: ./public/.jpg/
+        working-directory: ./public/image/
         run: |
-          find . -type f -iname "*.jpg" -exec sh -c '
+          find . -type f -iname "*.*" -exec sh -c '
+            FILE={}
             output_dir="../.webp/$(echo $(dirname {}) | cut -c 3-)"
             mkdir -p $output_dir
-            cwebp -q 1 "{}" -quiet -o "$output_dir/$(basename {} .jpg).webp" 
+            cwebp -q 1 "{}" -quiet -o "$output_dir/$(basename {} .${FILE##*.}).webp" 
           ' \;
       - name: Install dependencies
         run: npm i --package-lock-only && npm ci

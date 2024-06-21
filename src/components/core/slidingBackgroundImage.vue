@@ -16,35 +16,30 @@
 </template>
 
 <script lang="ts">
-	import { fade } from '../../ts/core/Animation';
-	import {
-		fetchDataUrl,
-		getRandomInt,
-		hexToRgb,
-		rgbToHex,
-		sleep,
-	} from '../../ts/core/utils';
-	import { htmlStylesStore } from '../../stores/htmlStyles';
-	import { variablesStore } from '../../stores/variables';
-	import GithubButton from '../utils/githubButton.vue';
+	import { fade } from '@ts/core/Animation';
+	import { fetchDataUrl, getRandomInt, hexToRgb, rgbToHex, sleep } from '@ts/core/utils';
+	import { htmlStylesStore } from '@st/htmlStyles';
+	import { variablesStore } from '@st/variables';
+	import GithubButton from '@cp/utils/githubButton.vue';
 	import SpotifyCurrentSong from '../utils/spotifyCurrentSong.vue';
 	import ViewCounter from '../utils/viewCounter.vue';
 	import MainText from '../utils/mainText.vue';
 	import ContentAvisory from '../utils/contentAdvisory.vue';
 	import { ref } from 'vue';
 	//@ts-ignore
-	import { webpFiles } from '../../ts/assets/webpFiles';
+	import { imageFiles } from '@ts/assets/imageFiles';
 
 	const randomImageDuration = 23;
 
 	export default {
 		setup() {
 			const mTxt = ref<typeof MainText>(),
-				ghBtn = ref<typeof GithubButton>();
+				ghBtn = ref<typeof GithubButton>(),
+				myImg = ref<HTMLImageElement>();
 
 			let images: string[] = [];
 
-			return { mTxt, ghBtn, images };
+			return { mTxt, ghBtn, images, myImg };
 		},
 		components: {
 			GithubButton,
@@ -54,7 +49,7 @@
 			ContentAvisory,
 		},
 		mounted() {
-			const imagesUrl = webpFiles.filter((i: string) => i.includes('wallpaper'));
+			const imagesUrl = imageFiles.filter((i: string) => i.includes('wallpaper'));
 			this.images.length = imagesUrl.length;
 			imagesUrl.map(async (v: string, i: number) =>
 				fetchDataUrl(v).then((o: string) => (this.images[i] = o)),
@@ -124,7 +119,7 @@
 			},
 			changeTextColor() {
 				const htmlStyles = htmlStylesStore(),
-					myImg = this.$refs.myImg as HTMLImageElement,
+					myImg = this.myImg!,
 					{ r, g, b, colorSum } = this.getAverageRGB(myImg)!,
 					bri = colorSum.f(),
 					averageR = ((bri < 128 ? 270 : 180) - r.f()).a(),
@@ -134,7 +129,7 @@
 				this.updateTextDecoration(bri);
 			},
 			async randomImage(dur: number, loop = false) {
-				const myImg = this.$refs.myImg as HTMLImageElement,
+				const myImg = this.myImg!,
 					textDiv = this.mTxt!.$refs.textDiv,
 					textDivSub = this.mTxt!.$refs.textDivSub,
 					githubSpin = this.ghBtn!.$refs.githubSpin,

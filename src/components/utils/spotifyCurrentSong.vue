@@ -1,13 +1,14 @@
+<style scoped></style>
 <template>
 	<div
-		class="absolute tl-8 z-50 flex origin-top-left translate-x-[63px] rotate-90 scale-75 cursor-wait sm:translate-x-0 sm:translate-y-0 sm:rotate-0 sm:scale-100"
+		class="absolute tl-8 z-50 flex origin-top-left translate-x-[64px] rotate-90 scale-[0.4] cursor-wait sm:translate-x-0 sm:translate-y-0 sm:rotate-0 sm:scale-[0.512]"
 	>
 		<iframe
-			:src="`https://spotify-github-profile.vercel.app/api/view.svg?uid=${userID}&cover_image=true&theme=natemoo-re&show_offline=true&interchange=true&bar_color=53b14f&bar_color_cover=true`"
+			:src="`https://moving-thrush-physically.ngrok-free.app/api?id=${userID}`"
 			frameborder="0"
 			id="mySpotify"
-			height="84px"
-			width="320px"
+			height="160px"
+			width="625px"
 			class="z-40"
 		></iframe>
 		<div class="absolute z-50 full select-none bg-transparent"></div>

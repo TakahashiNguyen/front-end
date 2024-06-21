@@ -1,5 +1,5 @@
 {
-	"vite.autoStart": true,
+	"vite.autoStart": false,
 	"vite.browserType": "system",
 	"vite.port": 5173,
 	"vite.showTerminal": true,

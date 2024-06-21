@@ -6,6 +6,7 @@ import { Plugin } from 'vite';
 import Unfonts from 'unplugin-fonts/vite';
 import { getAllFilesRecursive } from './plugins/utils';
 import { CustomFontFamily } from 'unplugin-fonts/types';
+import path from 'path';
 
 // https://vitejs.dev/config/
 const plugins = [fileListPlugin, appendType],
@@ -25,29 +26,35 @@ const plugins = [fileListPlugin, appendType],
 
 export default defineConfig({
 	plugins: [
-		vue(),
-		Unfonts({
-			custom: {
-				families: getFonts(['otf', 'ttf']),
-				display: 'auto',
-				preload: true,
-				prefetch: false,
-				injectTo: 'head',
-			},
-		}),
-	]
-		.concat(
-			plugins.map((i): Plugin => {
+		[
+			vue(),
+			Unfonts({
+				custom: {
+					families: getFonts(['otf', 'ttf']),
+					display: 'auto',
+					preload: true,
+					prefetch: false,
+					injectTo: 'head',
+				},
+			}),
+			...plugins.map((i): Plugin => {
 				return { ...i(), apply: 'serve' };
 			}),
-		)
-		.concat(
-			plugins.map((i): Plugin => {
+			...plugins.map((i): Plugin => {
 				return { ...i(), apply: 'build' };
 			}),
-		),
+		],
+	],
 	build: {
 		outDir: 'dist',
 	},
 	base: '/front-end/',
+	resolve: {
+		alias: {
+			'@ts': path.resolve(__dirname, './src/ts'),
+			'@cp': path.resolve(__dirname, './src/components'),
+			'@st': path.resolve(__dirname, './src/stores'),
+			'@sc': path.resolve(__dirname, './src/scss'),
+		},
+	},
 });

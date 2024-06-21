@@ -25,7 +25,7 @@
 </template>
 <script lang="ts">
 	import { ref } from 'vue';
-	import { randomString } from '../../ts/core/utils';
+	import { randomString } from '@ts/core/utils';
 
 	export default {
 		setup() {

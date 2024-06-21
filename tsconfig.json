@@ -20,7 +20,14 @@
 		"noFallthroughCasesInSwitch": true,
 		"useUnknownInCatchVariables": true,
 		/* Custom plugins */
-		"types": ["unplugin-fonts/client"]
+		"types": ["unplugin-fonts/client"],
+		"baseUrl": ".",
+		"paths": {
+			"@ts/*": ["src/ts/*"],
+			"@cp/*": ["src/components/*"],
+			"@st/*": ["src/stores/*"],
+			"@sc/*": ["src/scss/*"]
+		}
 	},
 	"include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
 	"references": [
