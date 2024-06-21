@@ -1,4 +1,3 @@
-import * as path from 'path';
 import * as fs from 'fs';
 import './types';
 
@@ -8,18 +7,13 @@ export function getAllFilesRecursive(dirPath: string): string[] {
 			entries = fs.readdirSync(dirPath);
 
 		for (const entry of entries) {
-			const fullPath = entry.pj(),
+			const fullPath = `${dirPath}/${entry}`,
 				stats = fs.statSync(fullPath);
 
 			if (stats.isDirectory()) {
 				files.push(...getAllFilesRecursive(fullPath));
 			} else {
-				files.push(
-					fullPath
-						.split(process.platform === 'win32' ? '\\' : '/')
-						.slice(1)
-						.join('/'),
-				);
+				files.push(fullPath);
 			}
 		}
 

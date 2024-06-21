@@ -38,7 +38,7 @@ String.prototype.num = function () {
 	return Number(this);
 };
 String.prototype.pj = function () {
-	return path.join(__dirname, String(this));
+	return path.join(process.env.PWD!, String(this));
 };
 Number.prototype.f = function () {
 	return Math.floor(Number(this));

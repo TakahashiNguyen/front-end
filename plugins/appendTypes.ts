@@ -35,7 +35,8 @@ async function isConflict(
 				.replace(new RegExp('\t', 'g'), tabInd)
 				.replace(new RegExp('\n', 'g'), nlInd)
 				.replace(new RegExp(tabInd, 'g'), '')
-				.replace(new RegExp(nlInd, 'g'), '');
+				.replace(new RegExp(nlInd, 'g'), '')
+				.trim();
 		},
 		/**
 		 * format input string
@@ -146,9 +147,9 @@ export default function appendType(): Plugin {
 	return {
 		name: 'append-types',
 		async buildStart() {
-			const sourceFile = './types.ts'.pj(),
-				targetFile = '../src/ts/plugins/types.ts'.pj(),
-				conflictFile = '../types.ts'.pj();
+			const sourceFile = './plugins/types.ts'.pj(),
+				targetFile = './src/ts/plugins/types.ts'.pj(),
+				conflictFile = './types.ts'.pj();
 
 			if (
 				fs.existsSync(conflictFile) &&

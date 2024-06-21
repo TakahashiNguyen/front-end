@@ -10,8 +10,8 @@ export default function fileListPlugin(): Plugin {
 				const folderPath = `./public/${type}`,
 					fileNames = getAllFilesRecursive(folderPath);
 				writeToFile(
-					`/../src/ts/assets/${type}Files.ts`.pj(),
-					`export const ${type}Files = ['${fileNames.map(i => `./${i}`).join("',\n'")}']`,
+					`./src/ts/assets/${type}Files.ts`.pj(),
+					`export const ${type}Files = ['${fileNames.join("',\n'")}']`,
 				);
 			};
 
