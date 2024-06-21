@@ -91,6 +91,12 @@
 
 	export default {
 		setup() {
+			document.body!.setAttribute(
+				'class',
+				'dark:text-white text-black dark:bg-black bg-white',
+			);
+			document.body?.setAttribute('style', 'color-scheme: normal');
+
 			return { isSystemDark, hashTag };
 		},
 		components: {
@@ -102,11 +108,11 @@
 			toggleDarkMode() {
 				isDarkMode.value = !isDarkMode.value;
 				document
-					.querySelector('html')
-					?.setAttribute('class', isDarkMode.value ? 'dark' : 'light');
+					.querySelector('html')!
+					.setAttribute('class', isDarkMode.value ? 'dark' : 'light');
 				document
-					.querySelector('html')
-					?.setAttribute('data-theme', isDarkMode.value ? 'dark' : 'light');
+					.querySelector('html')!
+					.setAttribute('data-theme', isDarkMode.value ? 'dark' : 'light');
 			},
 		},
 		computed: {

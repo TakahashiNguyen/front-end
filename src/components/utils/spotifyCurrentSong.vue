@@ -6,10 +6,16 @@
 		<iframe
 			:src="`https://moving-thrush-physically.ngrok-free.app/api?id=${userID}`"
 			frameborder="0"
-			id="mySpotify"
 			height="160px"
 			width="625px"
-			class="z-40"
+			class="z-40 dObject"
+		></iframe>
+		<iframe
+			:src="`https://moving-thrush-physically.ngrok-free.app/api?id=${userID}&theme=dark`"
+			frameborder="0"
+			height="160px"
+			width="625px"
+			class="z-40 dObject-dark"
 		></iframe>
 		<div class="absolute z-50 full select-none bg-transparent"></div>
 		<div class="fixed z-30 full backdrop-blur-md blurBackground"></div>
