@@ -13,7 +13,7 @@ export function getAllFilesRecursive(dirPath: string): string[] {
 			if (stats.isDirectory()) {
 				files.push(...getAllFilesRecursive(fullPath));
 			} else {
-				files.push(fullPath);
+				files.push(fullPath.replace('./public', './'));
 			}
 		}
 

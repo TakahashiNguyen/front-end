@@ -34,9 +34,9 @@
 	import { fade } from '@ts/core/Animation';
 	import { ref } from 'vue';
 	//@ts-ignore
-	import { audioFiles } from '@ts/assets/audioFiles';
+	import {mp3Files} from '@ts/assets/mp3Files'
 
-	const startupAudio = audioFiles.get('startup').random();
+	const startupAudio = mp3Files.get('startup').random();
 
 	export default {
 		setup() {
