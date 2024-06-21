@@ -34,11 +34,12 @@
 	export default {
 		setup() {
 			const mTxt = ref<typeof MainText>(),
-				ghBtn = ref<typeof GithubButton>();
+				ghBtn = ref<typeof GithubButton>(),
+				myImg = ref<HTMLImageElement>();
 
 			let images: string[] = [];
 
-			return { mTxt, ghBtn, images };
+			return { mTxt, ghBtn, images, myImg };
 		},
 		components: {
 			GithubButton,
@@ -118,7 +119,7 @@
 			},
 			changeTextColor() {
 				const htmlStyles = htmlStylesStore(),
-					myImg = this.$refs.myImg as HTMLImageElement,
+					myImg = this.myImg!,
 					{ r, g, b, colorSum } = this.getAverageRGB(myImg)!,
 					bri = colorSum.f(),
 					averageR = ((bri < 128 ? 270 : 180) - r.f()).a(),
@@ -128,7 +129,7 @@
 				this.updateTextDecoration(bri);
 			},
 			async randomImage(dur: number, loop = false) {
-				const myImg = this.$refs.myImg as HTMLImageElement,
+				const myImg = this.myImg!,
 					textDiv = this.mTxt!.$refs.textDiv,
 					textDivSub = this.mTxt!.$refs.textDivSub,
 					githubSpin = this.ghBtn!.$refs.githubSpin,

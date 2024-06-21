@@ -69,6 +69,7 @@
 <script lang="ts">
 	import { htmlStylesStore } from '@st/htmlStyles';
 	import { variablesStore } from '@st/variables';
+	import { ref } from 'vue';
 
 	export default {
 		setup() {
@@ -87,8 +88,10 @@
 					'Magnificent',
 					'Karasha',
 					'sofia',
-				].random();
-			return { htmlStyles, variables, luckyFont };
+				].random(),
+				textDiv = ref<HTMLElement>();
+
+			return { htmlStyles, variables, luckyFont, textDiv };
 		},
 		mounted() {
 			const obj = this.$refs;
