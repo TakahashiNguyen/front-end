@@ -146,9 +146,9 @@ export default function appendType(): Plugin {
 	return {
 		name: 'append-types',
 		async buildStart() {
-			const sourceFile = path.join(__dirname, './types.ts'),
-				targetFile = path.join(__dirname, '../src/ts/plugins/types.ts'),
-				conflictFile = path.join(__dirname, '../types.ts');
+			const sourceFile = './types.ts'.pj(),
+				targetFile = '../src/ts/plugins/types.ts'.pj(),
+				conflictFile = '../types.ts'.pj();
 
 			if (
 				fs.existsSync(conflictFile) &&

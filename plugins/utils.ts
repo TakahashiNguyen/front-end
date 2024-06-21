@@ -8,7 +8,7 @@ export function getAllFilesRecursive(dirPath: string): string[] {
 			entries = fs.readdirSync(dirPath);
 
 		for (const entry of entries) {
-			const fullPath = path.join(dirPath, entry),
+			const fullPath = entry.pj(),
 				stats = fs.statSync(fullPath);
 
 			if (stats.isDirectory()) {
@@ -30,7 +30,7 @@ export function getAllFilesRecursive(dirPath: string): string[] {
 }
 
 export function slinceFileAt(file: string, line: string) {
-	const content = fs.readFileSync(path.join(__dirname, file)).toString().split('\n'),
+	const content = fs.readFileSync(file.pj()).toString().split('\n'),
 		targetLine = content.findIndex(l => l.includes(line));
 
 	return { f: content.slice(0, targetLine), s: content.slice(targetLine + 1) };
