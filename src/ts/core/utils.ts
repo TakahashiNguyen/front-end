@@ -1,4 +1,4 @@
-import { Color } from '@ts/plugins/types';
+import '@ts/plugins/types';
 
 // functions
 export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms)),
@@ -50,6 +50,14 @@ export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, 
 				while (reader.readyState !== 2) await sleep(100);
 				return reader.result as string;
 			}),
+	getStatusCode = async (url: string) => {
+		try {
+			const response = await fetch(url);
+			return response.status;
+		} catch (error) {
+			console.error('Error fetching URL:', error);
+		}
+	},
 	randomString = (length = 10): string => {
 		var ou = '';
 		do {

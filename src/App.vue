@@ -3,7 +3,7 @@
 		@apply bg-white/[.64] dark:bg-black/[.64];
 	}
 	.scrollContainer {
-		@apply flex h-screen w-screen flex-col flex-nowrap;
+		@apply flex h-dvh w-screen flex-col flex-nowrap;
 		overflow: auto;
 		scroll-snap-type: y mandatory;
 		scroll-behavior: smooth;

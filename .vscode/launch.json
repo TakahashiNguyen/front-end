@@ -15,7 +15,8 @@
 				"webpack:///./src/*": "${webRoot}/*"
 			},
 			"sourceMaps": true,
-			"runtimeArgs": ["--remote-debugging-port=9222", "--disable-web-security"]
+			"runtimeArgs": ["--remote-debugging-port=9222", "--disable-web-security"],
+			"skipFiles": ["**/node_modules/**/*.js"]
 		},
 		{
 			"name": "Debug NodeJS",

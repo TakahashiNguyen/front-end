@@ -7,8 +7,8 @@ declare global {
 		last(): T;
 	}
 	interface String {
-		getElement(): GeneralHTML;
-		getElements(): GeneralHTML[];
+		getElement(): HTMLElement;
+		getElements(): HTMLElement[];
 		num(): number;
 		pj(): string;
 	}
@@ -17,10 +17,8 @@ declare global {
 		r(): number; // round()
 		a(): number; // abs()
 	}
+	type Color = [number, number, number];
 }
-
-export type Color = [number, number, number];
-export type GeneralHTML = HTMLElement & HTMLCanvasElement & HTMLImageElement;
 
 Array.prototype.get = function (subString: string) {
 	return this.filter((i: string) => i.includes(subString));
@@ -33,6 +31,9 @@ Array.prototype.last = function () {
 };
 String.prototype.getElements = function () {
 	return Array.from(document.querySelectorAll(`[id*=${this}]`));
+};
+String.prototype.getElement = function () {
+	return document.getElementById(String(this))!;
 };
 String.prototype.num = function () {
 	return Number(this);

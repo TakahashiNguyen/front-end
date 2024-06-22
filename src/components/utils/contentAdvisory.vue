@@ -1,7 +1,7 @@
 <style scoped></style>
 <template>
 	<div
-		class="group/advisory absolute bl-8 z-50 flex animate-shake cursor-not-allowed flex-col-reverse text-center hover:animate-none sm:flex-row font-['GothicA1'] text-[0.75rem]"
+		class="group/advisory absolute bl-8 z-50 flex animate-shake cursor-not-allowed flex-col-reverse text-center hover:animate-none sm:flex-row font-['GothicA1'] text-[0.75rem] select-none"
 	>
 		<div class="flex flex-col w-[6.25rem] blurBackground">
 			<advisorySVG letter-space="0.15rem">PRIORITIZE</advisorySVG>

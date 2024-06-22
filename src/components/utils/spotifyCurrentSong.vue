@@ -9,6 +9,7 @@
 			height="160px"
 			width="625px"
 			class="z-40 dObject"
+			v-if="loaded"
 		></iframe>
 		<iframe
 			:src="`https://moving-thrush-physically.ngrok-free.app/api?id=${userID}&theme=dark`"
@@ -16,14 +17,31 @@
 			height="160px"
 			width="625px"
 			class="z-40 dObject-dark"
+			v-if="loaded"
 		></iframe>
+		<nyanCat class="z-[45]" v-if="!loaded" style="height: 160px; width: 625px" />
 		<div class="absolute z-50 full select-none bg-transparent"></div>
 		<div class="fixed z-30 full backdrop-blur-md blurBackground"></div>
 	</div>
 </template>
 
 <script lang="ts">
+	import { getStatusCode } from '@ts/core/utils';
+	import nyanCat from './nyanCat.vue';
+	import { ref } from 'vue';
+
 	export default {
+		setup() {
+			const loaded = ref<Boolean>();
+
+			return { loaded };
+		},
+		async mounted() {
+			this.loaded =
+				(await getStatusCode('https://moving-thrush-physically.ngrok-free.app/api'))! ===
+				200;
+		},
+		components: { nyanCat },
 		props: {
 			userID: {
 				type: String,

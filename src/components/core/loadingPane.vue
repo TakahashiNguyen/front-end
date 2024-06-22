@@ -50,7 +50,7 @@
 		data() {
 			const audio = new Howl({
 				src: startupAudio,
-				volume: 1,
+				volume: 0.3,
 				autoplay: true,
 				onplayerror: function () {
 					audio.once('unlock', function () {
