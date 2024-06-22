@@ -155,7 +155,7 @@
 
 					myImg.setAttribute('src', data);
 					try {
-						'mySpotify'.getElement().src += '';
+						('mySpotify'.getElement() as HTMLImageElement).src += '';
 					} catch (error) {}
 
 					await Promise.all([
