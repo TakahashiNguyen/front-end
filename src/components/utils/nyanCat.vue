@@ -13,7 +13,7 @@
 		<div id="wave-b" class="cold rainbow"></div>
 		<div id="wave-b" class="hot rainbow"></div>
 
-		<div id="nyan-cat" class="frame1">
+		<div id="nyan-cat" ref="theCat" class="frame1">
 			<div id="tail"></div>
 
 			<div id="paws"></div>
@@ -30,26 +30,27 @@
 </template>
 
 <script lang="ts">
+	import { sleep } from '@ts/core/utils';
+	import { ref } from 'vue';
+
 	export default {
 		setup() {
 			let currentFrame = 1;
+			const theCat = ref<HTMLElement>();
 
-			return { currentFrame };
+			return { currentFrame, theCat };
 		},
 		mounted() {
 			this.replicateSparks('sparks-combo'.getElement());
-
-			setInterval(() => {
-				this.currentFrame = (this.currentFrame % 6) + 1;
-				this.cycleFrames('nyan-cat'.getElement(), this.currentFrame);
-			}, 70);
+			this.theLoop(this.theCat!);
 		},
 		methods: {
-			cycleFrames(_nyanCat: HTMLElement, _currentFrame: number) {
-				_nyanCat.setAttribute('class', '');
-				_nyanCat.classList.add(`frame${_currentFrame}`);
+			async theLoop(theCat: HTMLElement) {
+				this.currentFrame = (this.currentFrame % 6) + 1;
+				theCat.setAttribute('class', `frame${this.currentFrame}`);
+				await sleep(60);
+				this.theLoop(theCat);
 			},
-
 			replicateSparks(_sparksRow: HTMLElement) {
 				const numberOfRowsToCoverEntireScreen = Math.ceil(
 					'body'.getElement().offsetHeight / _sparksRow.offsetHeight,
