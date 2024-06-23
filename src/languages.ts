@@ -1,1 +1,1 @@
-export const availableLanguages = ['vi-vn', 'en-gb'];
+export const availableLanguages = ['vn', 'gb'];

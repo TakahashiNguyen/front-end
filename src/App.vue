@@ -293,7 +293,7 @@
 			},
 			flag(lang: string) {
 				lang = lang.substring(lang.length - 2).toUpperCase();
-				return emojiFlags.countryCode(lang)?.emoji;
+				return ' ' + emojiFlags.countryCode(lang)?.emoji;
 			},
 			toggleDarkMode() {
 				isDarkMode.value = !isDarkMode.value;

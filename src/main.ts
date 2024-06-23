@@ -33,7 +33,7 @@ function genI18NImports(paths: string[][]): TolgeeStaticData {
 	return paths.reduce((acc, val: any) => {
 		return {
 			...acc,
-			[`${val[0]}:${val[1]}`]: () => import(`../src/i18n/${val[1]}/${val[0]}.json`),
+			[`${val[0]}:${val[1]}`]: () => import(`./i18n/${val[1]}/${val[0]}.json`),
 		};
 	}, {} as TolgeeStaticData);
 }
