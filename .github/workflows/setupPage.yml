@@ -71,7 +71,7 @@ jobs:
           name: github-page
           path: ./dist
   deploy:
-    if: ${{ !github.event.act }}
+    if: ${{ !github.event.act || !github.event.pull_request }}
     needs: build
     environment:
       name: github-pages
