@@ -1,10 +1,12 @@
 <style scoped></style>
 <template>
 	<div
-		class="group/advisory absolute bl-8 z-50 flex animate-shake cursor-not-allowed flex-col-reverse text-center hover:animate-none sm:flex-row font-['GothicA1'] text-[0.75rem] select-none"
+		class="group/advisory absolute bl-8 z-50 flex animate-shake cursor-not-allowed flex-col-reverse text-center hover:animate-none sm:flex-row font-['GothicA1'] text-[0.75rem] select-nonee"
 	>
 		<div class="flex flex-col w-[6.25rem] blurBackground">
-			<advisorySVG letter-space="0.15rem">PRIORITIZE</advisorySVG>
+			<advisorySVG letter-space="0.15rem">
+				<T key-name="top" ns="advisory" />
+			</advisorySVG>
 			<svg
 				width="100"
 				height="16"
@@ -21,7 +23,7 @@
 							text-anchor="middle"
 							class="fill-white"
 						>
-							PERSONAL
+							<T key-name="mid" ns="advisory" />
 						</text>
 					</mask>
 				</defs>
@@ -32,7 +34,9 @@
 					height="100%"
 				/>
 			</svg>
-			<advisorySVG letter-space="0.10rem">WELL-BEING</advisorySVG>
+			<advisorySVG letter-space="0.10rem">
+				<T key-name="bot" ns="advisory" />
+			</advisorySVG>
 		</div>
 		<div
 			class="scale-75 translate-x-[-12.5%] translate-y-[12.5%] sm:scale-100 sm:translate-x-0 sm:translate-y-0"
@@ -43,7 +47,7 @@
 				<div
 					class="text-nowrap mx-[10px] text-[27px] text-white dark:text-[#370037] dark:drop-shadow-[0px_0px_10px_white] drop-shadow-[0px_0px_10px_black] font-['Oswald']"
 				>
-					{{ message }}
+					<T keyName="countDown" ns="advisory" :params="{ msg: message! }" />
 				</div>
 				<svg
 					class="absolute -z-50 bg-transparent full"
@@ -55,7 +59,8 @@
 							src=""
 							class="full bg-white/[.32]"
 							frameborder="0"
-						></iframe>
+						>
+						</iframe>
 					</foreignObject>
 				</svg>
 			</div>
@@ -64,29 +69,32 @@
 </template>
 <script lang="ts">
 	import { ref } from 'vue';
+	import { T } from '@tolgee/vue';
 	import advisorySVG from '../elements/advisorySVG.vue';
 
 	export default {
 		setup() {
 			const targetDate = new Date('2024-01-28T00:00:00'),
-				message = ref();
+				message = ref<string>();
 			targetDate.setMonth(targetDate.getMonth() + 19);
+
+			return { message, targetDate };
+		},
+		components: {
+			advisorySVG,
+			T,
+		},
+		mounted() {
 			setInterval(() => {
 				const now = new Date().getTime(),
-					remainingTime = targetDate.getTime() - now,
+					remainingTime = this.targetDate.getTime() - now,
 					days = (remainingTime / (1000 * 60 * 60 * 24)).f().a(),
 					hours = ((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).f().a(),
 					minutes = ((remainingTime % (1000 * 60 * 60)) / (1000 * 60)).f().a(),
 					seconds = ((remainingTime % (1000 * 60)) / 1000).f().a();
 
-				message.value = remainingTime < 0 ? 'Seeking love for ' : `Downtime for `;
-				message.value += `${days.toString().padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} seconds`;
+				this.message = `${days.toString().padStart(2, '0')}:${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 			}, 1000);
-
-			return { message };
-		},
-		components: {
-			advisorySVG,
 		},
 		methods: {},
 	};

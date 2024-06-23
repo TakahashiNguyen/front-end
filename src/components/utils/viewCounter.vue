@@ -5,11 +5,11 @@
 	>
 		<picture>
 			<img
-				src="https://img.shields.io/endpoint?url=https%3A%2F%2Fhits.dwyl.com%2FTakahashiNguyen%2FTakahashiNguyen.json&style=flat&label=S%E1%BB%91%20l%C6%B0%E1%BB%A3t%20th%C4%83m&labelColor=080808&color=f05237"
+				:src="`https\://img.shields.io/endpoint?url=https%3A%2F%2Fhits.dwyl.com%2FTakahashiNguyen%2FTakahashiNguyen.json&style=flat&label=${$t('visitCount', '', { ns: 'lang' })}&labelColor=080808&color=f05237`"
 				class="dObject-dark"
 			/>
 			<img
-				src="https://img.shields.io/endpoint?url=https%3A%2F%2Fhits.dwyl.com%2FTakahashiNguyen%2FTakahashiNguyen.json&style=flat&label=S%E1%BB%91%20l%C6%B0%E1%BB%A3t%20th%C4%83m&labelColor=f05237&color=f7f7f7"
+				:src="`https\://img.shields.io/endpoint?url=https%3A%2F%2Fhits.dwyl.com%2FTakahashiNguyen%2FTakahashiNguyen.json&style=flat&label=${$t('visitCount', '', { ns: 'lang' })}&labelColor=f05237&color=f7f7f7`"
 				class="dObject"
 			/>
 		</picture>

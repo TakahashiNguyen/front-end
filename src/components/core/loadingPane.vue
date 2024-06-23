@@ -13,7 +13,7 @@
 		class="fixed cursor-pointer z-[100] bg-white dark:bg-black h-lvh w-full"
 		ref="loadingPage"
 	>
-		<div class="absolute z-50 full select-none bg-transparent"></div>
+		<div class="absolute z-50 full select-none bg-transparent"> </div>
 		<div class="absolute flex square">
 			<picture class="flex middle-div full">
 				<img
@@ -34,7 +34,7 @@
 	import { fade } from '@ts/core/Animation';
 	import { ref } from 'vue';
 	//@ts-ignore
-	import {mp3Files} from '@ts/assets/mp3Files'
+	import { mp3Files } from '@ts/assets/mp3Files';
 
 	const startupAudio = mp3Files.get('startup').random();
 

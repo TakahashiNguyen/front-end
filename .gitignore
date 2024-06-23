@@ -29,3 +29,6 @@ src/scss/fonts.scss
 **/.mp3
 **/.webp
 types.ts
+
+# Secret files
+.env

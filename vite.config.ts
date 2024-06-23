@@ -48,7 +48,6 @@ export default defineConfig({
 	build: {
 		outDir: 'dist',
 	},
-	base: '/front-end/',
 	resolve: {
 		alias: {
 			'@ts': path.resolve(__dirname, './src/ts'),
@@ -57,4 +56,5 @@ export default defineConfig({
 			'@sc': path.resolve(__dirname, './src/scss'),
 		},
 	},
+	base: '/front-end/',
 });

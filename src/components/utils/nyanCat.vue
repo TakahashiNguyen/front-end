@@ -1,29 +1,29 @@
 <template>
 	<div id="body">
 		<div class="sparks-combo" id="sparks-combo">
-			<div class="spark"></div>
-			<div class="spark"></div>
-			<div class="spark"></div>
-			<div class="spark"></div>
+			<div class="spark"> </div>
+			<div class="spark"> </div>
+			<div class="spark"> </div>
+			<div class="spark"> </div>
 		</div>
 
-		<div id="wave-a" class="cold rainbow"></div>
-		<div id="wave-a" class="hot rainbow"></div>
+		<div id="wave-a" class="cold rainbow"> </div>
+		<div id="wave-a" class="hot rainbow"> </div>
 
-		<div id="wave-b" class="cold rainbow"></div>
-		<div id="wave-b" class="hot rainbow"></div>
+		<div id="wave-b" class="cold rainbow"> </div>
+		<div id="wave-b" class="hot rainbow"> </div>
 
 		<div id="nyan-cat" ref="theCat" class="frame1">
-			<div id="tail"></div>
+			<div id="tail"> </div>
 
-			<div id="paws"></div>
+			<div id="paws"> </div>
 
 			<div id="pop-tarts-body">
-				<div id="pop-tarts-body-cream"></div>
+				<div id="pop-tarts-body-cream"> </div>
 			</div>
 
 			<div id="head">
-				<div id="face"></div>
+				<div id="face"> </div>
 			</div>
 		</div>
 	</div>
