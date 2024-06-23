@@ -20,9 +20,6 @@
 	.h-nav {
 		height: var(--nav-height);
 	}
-	.flag {
-		font-family: Arial, Helvetica, sans-serif, 'Twemoji Country Flags';
-	}
 </style>
 
 <template>
@@ -73,39 +70,7 @@
 						</RouterLink>
 					</div>
 					<div class="md:flex md:flex-row-reverse items-center hidden">
-						<select
-							:value="tolgee.getLanguage()"
-							@change="changeLang"
-							class="ds-select ds-select-bordered ds-select-sm flag"
-						>
-							<option v-for="l in availableLanguages" :key="l" :value="l">
-								<T :key-name="l" ns="lang" :params="{ emoji: flag(l) }" />
-							</option>
-						</select>
-						<div class="ds-btn ds-btn-ghost ds-btn-square ds-btn-sm flex flex-nowrap">
-							<label class="ds-swap ds-swap-rotate scale-75">
-								<input
-									type="checkbox"
-									class="ds-theme-controller"
-									value="synthwave"
-									@click="toggleDarkMode"
-								/>
-								<RiContrast2Line
-									class="w-10 h-10"
-									:class="{
-										'ds-swap-off': isSystemDark,
-										'ds-swap-on': !isSystemDark,
-									}"
-								/>
-								<RiSunLine
-									class="w-10 h-10"
-									:class="{
-										'ds-swap-on': isSystemDark,
-										'ds-swap-off': !isSystemDark,
-									}"
-								/>
-							</label>
-						</div>
+						<QuickSwitch />
 					</div>
 				</nav>
 
@@ -141,39 +106,7 @@
 								<RiFacebookFill class="w-8 h-8" />
 							</div>
 							<div class="flex flex-row-reverse items-center md:hidden">
-								<select
-									:value="tolgee.getLanguage()"
-									@change="changeLang"
-									class="ds-select ds-select-bordered ds-select-sm flag"
-								>
-									<option v-for="l in availableLanguages" :key="l" :value="l">
-										<T :key-name="l" ns="lang" :params="{ emoji: flag(l) }" />
-									</option>
-								</select>
-								<div class="ds-btn ds-btn-ghost ds-btn-square ds-btn-sm flex flex-nowrap">
-									<label class="ds-swap ds-swap-rotate scale-75">
-										<input
-											type="checkbox"
-											class="ds-theme-controller"
-											value="synthwave"
-											@click="toggleDarkMode"
-										/>
-										<RiContrast2Line
-											class="w-10 h-10"
-											:class="{
-												'ds-swap-off': isSystemDark,
-												'ds-swap-on': !isSystemDark,
-											}"
-										/>
-										<RiSunLine
-											class="w-10 h-10"
-											:class="{
-												'ds-swap-on': isSystemDark,
-												'ds-swap-off': !isSystemDark,
-											}"
-										/>
-									</label>
-								</div>
+								<QuickSwitch />
 							</div>
 						</nav>
 					</footer>
@@ -186,29 +119,15 @@
 <script lang="ts">
 	import { ref } from 'vue';
 	import './ts/plugins/types';
-	import LoadingPane from './components/core/loadingPane.vue';
-	import SlidingBackgroundImage from './components/core/slidingBackgroundImage.vue';
+	import LoadingPane from '@cp/core/loadingPane.vue';
+	import SlidingBackgroundImage from '@cp/core/slidingBackgroundImage.vue';
 	import { TolgeeProvider } from '@tolgee/vue';
 	import { T } from '@tolgee/vue';
-	import emojiFlags from 'emoji-flags';
-	import { availableLanguages } from './languages';
 	import { polyfillCountryFlagEmojis } from 'country-flag-emoji-polyfill';
-	import { useTolgee } from '@tolgee/vue';
-	import {
-		RiContrast2Line,
-		RiFacebookFill,
-		RiSunLine,
-		RiTwitchFill,
-		RiYoutubeFill,
-	} from 'vue-remix-icons';
+	import { RiFacebookFill, RiTwitchFill, RiYoutubeFill } from 'vue-remix-icons';
+	import QuickSwitch from '@cp/elements/quickSwitch.vue';
 
-	const isDarkMode = ref(
-			window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
-		),
-		isSystemDark = ref(
-			window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
-		),
-		hashTag = 'new?';
+	const hashTag = 'new?';
 
 	polyfillCountryFlagEmojis();
 
@@ -221,16 +140,12 @@
 			document.body?.setAttribute('style', 'color-scheme: normal');
 
 			const myName = ref<HTMLElement>(),
-				tabMain = ref<HTMLElement>(),
-				tolgee = useTolgee(['language']);
+				tabMain = ref<HTMLElement>();
 
 			return {
-				isSystemDark,
-				availableLanguages,
 				hashTag,
 				myName,
 				tabMain,
-				tolgee,
 			};
 		},
 		components: {
@@ -241,28 +156,10 @@
 			RiYoutubeFill,
 			RiFacebookFill,
 			RiTwitchFill,
-			RiSunLine,
-			RiContrast2Line,
+			QuickSwitch,
 		},
 		mounted() {},
-		methods: {
-			changeLang(e: Event) {
-				this.tolgee.changeLanguage((e.target! as HTMLSelectElement).value);
-			},
-			flag(lang: string) {
-				lang = lang.substring(lang.length - 2).toUpperCase();
-				return ' ' + emojiFlags.countryCode(lang)?.emoji;
-			},
-			toggleDarkMode() {
-				isDarkMode.value = !isDarkMode.value;
-				document
-					.querySelector('html')!
-					.setAttribute('class', isDarkMode.value ? 'dark' : 'light');
-				document
-					.querySelector('html')!
-					.setAttribute('data-theme', isDarkMode.value ? 'dark' : 'light');
-			},
-		},
+		methods: {},
 		computed: {
 			cssVars() {
 				return {
