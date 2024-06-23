@@ -21,7 +21,11 @@
 			v-if="loaded"
 		>
 		</iframe>
-		<nyanCat class="z-[45]" v-if="!loaded" style="height: 160px; width: 625px" />
+		<nyanCat
+			class="z-[45] rotate-180 sm:rotate-0"
+			v-if="!loaded"
+			style="height: 160px; width: 625px"
+		/>
 		<div class="absolute z-50 full select-none bg-transparent"> </div>
 		<div class="fixed z-30 full backdrop-blur-md blurBackground"> </div>
 	</div>

@@ -1,6 +1,6 @@
 <template>
 	<div
-		class="absolute br-8 z-50 cursor-zoom-in origin-bottom-right sm:translate-x-0 sm:translate-y-0 sm:rotate-0 translate-y-[-112px] rotate-[-90deg]"
+		class="absolute br-8 z-50 cursor-zoom-in origin-bottom-left sm:translate-x-0 translate-x-[100%] sm:translate-y-0 sm:rotate-0 rotate-[-90deg]"
 		@click="LoadingPane.data"
 	>
 		<picture>

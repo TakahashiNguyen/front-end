@@ -35,6 +35,7 @@
 	"dependencies": {
 		"@tolgee/format-icu": "^5.28.2",
 		"@tolgee/vue": "^5.28.2",
-		"country-flag-emoji-polyfill": "^0.1.8"
+		"country-flag-emoji-polyfill": "^0.1.8",
+		"vue-remix-icons": "^3.12.0"
 	}
 }
