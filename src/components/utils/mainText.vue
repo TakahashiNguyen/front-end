@@ -21,7 +21,10 @@
 </style>
 
 <template>
-	<div class="h-dvh flex middle-div dark:text-white text-black select-none" :style="cssVars">
+	<div
+		class="h-dvh flex middle-div dark:text-white text-black select-none"
+		:style="cssVars"
+	>
 		<div class="middle-div flex square" ref="textSqr">
 			<div
 				class="absolute z-40 flex flex-col middle-div scale-125 -skew-y-6 lg:scale-100"
@@ -35,13 +38,15 @@
 					<p
 						ref="nickName"
 						class="capitalize justify-start flex font-nickName scale-nickName"
-					></p>
+					>
+					</p>
 					<p
 						ref="name"
 						class="capitalize scale-mainName"
 						:style="`font-family: ${luckyFont}, Copperplate, Papyrus, fantasy`"
-					></p>
-					<p ref="myHashTag" class="flex justify-end font-hashTag scale-hashTag"></p>
+					>
+					</p>
+					<p ref="myHashTag" class="flex justify-end font-hashTag scale-hashTag"> </p>
 				</div>
 			</div>
 
@@ -53,13 +58,15 @@
 					<p
 						ref="nickNameSub"
 						class="capitalize justify-start flex font-nickName scale-nickName"
-					></p>
+					>
+					</p>
 					<p
 						ref="nameSub"
 						class="capitalize scale-mainName"
 						:style="`font-family: ${luckyFont}, Copperplate, Papyrus, fantasy`"
-					></p>
-					<p ref="myHashTagSub" class="flex justify-end font-hashTag scale-hashTag"></p>
+					>
+					</p>
+					<p ref="myHashTagSub" class="flex justify-end font-hashTag scale-hashTag"> </p>
 				</div>
 			</div>
 		</div>
