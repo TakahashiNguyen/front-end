@@ -21,7 +21,7 @@
 				value="synthwave"
 				@click="toggleDarkMode"
 			/>
-			<RiContrast2Line
+			<RiMoonLine
 				class="w-10 h-10"
 				:class="{
 					'ds-swap-off': isSystemDark,
@@ -43,7 +43,7 @@
 	import { T, useTolgee } from '@tolgee/vue';
 	import emojiFlags from 'emoji-flags';
 	import { ref } from 'vue';
-	import { RiSunLine, RiContrast2Line } from 'vue-remix-icons';
+	import { RiSunLine, RiMoonLine } from 'vue-remix-icons';
 	import { availableLanguages } from '../../languages';
 
 	export default {
@@ -58,7 +58,7 @@
 
 			return { tolgee, isDarkMode, isSystemDark, availableLanguages };
 		},
-		components: { RiSunLine, RiContrast2Line, T },
+		components: { RiSunLine, RiMoonLine, T },
 		methods: {
 			changeLang(e: Event) {
 				this.tolgee.changeLanguage((e.target! as HTMLSelectElement).value);

@@ -1,12 +1,12 @@
-import './scss/style.scss';
-import './scss/scrollbar.scss';
+import '@sc/style.scss';
+import '@sc/scrollbar.scss';
 import 'unfonts.css';
 import App from './App.vue';
 import { createMemoryHistory, createRouter } from 'vue-router';
-import BootstrapTest from './components/BootstrapTest.vue';
+import BootstrapTest from '@cp/aboutMe.vue';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import HelloWorld from './components/HelloWorld.vue';
+import HelloWorld from '@cp/HelloWorld.vue';
 import {
 	Tolgee,
 	DevTools,

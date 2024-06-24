@@ -7,7 +7,8 @@
 		"dev": "vite --host",
 		"build": "vue-tsc && vite build",
 		"preview": "vite preview",
-		"prettier": "prettier --write ."
+		"prettier": "prettier --write .",
+		"i18n": "tolgee pull --project-id 8011 --path ./src/i18n"
 	},
 	"devDependencies": {
 		"@popperjs/core": "^2.11.8",
