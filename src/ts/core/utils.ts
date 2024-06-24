@@ -58,6 +58,12 @@ export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, 
 			console.error('Error fetching URL:', error);
 		}
 	},
+	replaceAt = (str: string, pos: number, char: string) => {
+		const firstPart = str.slice(0, pos),
+			lastPart = str.slice(pos + 1);
+
+		return firstPart + char + lastPart;
+	},
 	randomString = (length = 10): string => {
 		var ou = '';
 		do {

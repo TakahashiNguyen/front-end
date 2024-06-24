@@ -7,7 +7,7 @@ declare global {
 		last(): T;
 	}
 	interface String {
-		getElement(): HTMLElement;
+		getElement(): any;
 		getElements(): HTMLElement[];
 		num(): number;
 		pj(): string;
@@ -16,6 +16,9 @@ declare global {
 		f(): number; // floor()
 		r(): number; // round()
 		a(): number; // abs()
+		c(): number; // cos()
+		t(): number; // tan()
+		r(): number; // convert to radiant
 	}
 	type Color = [number, number, number];
 }
@@ -49,4 +52,13 @@ Number.prototype.r = function () {
 };
 Number.prototype.a = function () {
 	return Math.abs(Number(this));
+};
+Number.prototype.c = function () {
+	return Math.cos(Number(this));
+};
+Number.prototype.t = function () {
+	return Math.tan(Number(this));
+};
+Number.prototype.r = function () {
+	return (Number(this) / 180) * Math.PI;
 };
