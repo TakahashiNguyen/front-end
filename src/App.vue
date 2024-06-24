@@ -34,21 +34,7 @@
 			<div class="scrollItems">
 				<nav class="bg-white dark:bg-black h-nav justify-between flex px-3" ref="navBar">
 					<div class="ds-avatar ds-btn ds-btn-circle ds-btn-ghost hidden md:block">
-						<div
-							class="rounded-full scale-[70%]"
-							@click="
-								myName!.scrollIntoView({
-									behavior: 'smooth',
-									block: 'end',
-									inline: 'nearest',
-								})
-							"
-						>
-							<img
-								src="https://github.com/TakahashiNguyen.png"
-								class="drop-shadow-xl cursor-pointer"
-							/>
-						</div>
+						<BackToTop :to="myName!" />
 					</div>
 					<div
 						role="tablist"
@@ -59,14 +45,20 @@
 							<T key-name="introduce" ns="tabs" />
 						</RouterLink>
 						<RouterLink
-							to="/about"
+							to="/latestWork"
 							role="tab"
 							class="ds-tab"
 							active-class="ds-tab-active"
 						>
+							<T key-name="latestWork" ns="tabs" />
 						</RouterLink>
-						<RouterLink to="/me" role="tab" class="ds-tab" active-class="ds-tab-active">
-							Tab 3
+						<RouterLink
+							to="/interests"
+							role="tab"
+							class="ds-tab"
+							active-class="ds-tab-active"
+						>
+							<T key-name="interests" ns="tabs" />
 						</RouterLink>
 					</div>
 					<div class="md:flex md:flex-row-reverse items-center hidden">
@@ -79,21 +71,7 @@
 					<footer class="ds-footer items-center p-4 dark:bg-neutral bg-neutral-content">
 						<aside class="items-center grid-flow-col">
 							<div class="ds-avatar ds-btn ds-btn-circle ds-btn-ghost block md:hidden">
-								<div
-									class="rounded-full scale-[70%]"
-									@click="
-										myName!.scrollIntoView({
-											behavior: 'smooth',
-											block: 'end',
-											inline: 'nearest',
-										})
-									"
-								>
-									<img
-										src="https://github.com/TakahashiNguyen.png"
-										class="drop-shadow-xl cursor-pointer"
-									/>
-								</div>
+								<BackToTop :to="myName!" />
 							</div>
 							<p>NoCopyright - All right irreserved</p>
 						</aside>
@@ -126,6 +104,7 @@
 	import { polyfillCountryFlagEmojis } from 'country-flag-emoji-polyfill';
 	import { RiFacebookFill, RiTwitchFill, RiYoutubeFill } from 'vue-remix-icons';
 	import QuickSwitch from '@cp/elements/quickSwitch.vue';
+	import BackToTop from '@cp/elements/backToTop.vue';
 
 	const hashTag = 'new?';
 
@@ -157,6 +136,7 @@
 			RiFacebookFill,
 			RiTwitchFill,
 			QuickSwitch,
+			BackToTop,
 		},
 		mounted() {},
 		methods: {},

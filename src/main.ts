@@ -3,10 +3,9 @@ import '@sc/scrollbar.scss';
 import 'unfonts.css';
 import App from './App.vue';
 import { createMemoryHistory, createRouter } from 'vue-router';
-import BootstrapTest from '@cp/aboutMe.vue';
+import aboutMe from '@cp/aboutMe.vue';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import HelloWorld from '@cp/HelloWorld.vue';
 import {
 	Tolgee,
 	DevTools,
@@ -16,11 +15,14 @@ import {
 } from '@tolgee/vue';
 import { FormatIcu } from '@tolgee/format-icu';
 import { availableLanguages } from './languages';
+import LatestWork from '@cp/latestWork.vue';
+import Interests from '@cp/interests.vue';
 
 // Vue-router section
 const routes = [
-	{ path: '/', component: BootstrapTest },
-	{ path: '/about', component: HelloWorld },
+	{ path: '/', component: aboutMe },
+	{ path: '/latestWork', component: LatestWork },
+	{ path: '/interests', component: Interests },
 ];
 
 const router = createRouter({
