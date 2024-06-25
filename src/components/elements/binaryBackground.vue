@@ -2,12 +2,15 @@
 	<div
 		class="full absolute flex flex-col justify-center items-center whitespace-nowrap overflow-hidden"
 	>
-		<svg class="absolute overflow-hidden font-['Consolas'] -rotate-[17deg]" ref="main">
+		<svg
+			:class="`absolute overflow-hidden font-['Consolas'] -rotate-[${angle}deg]`"
+			ref="main"
+		>
 			<defs>
 				<mask id="binaryDefs"></mask>
 			</defs>
 			<rect
-				class="fill-[#370037] dark:fill-white"
+				class="fill-[#370037] dark:fill-white full"
 				style="mask: url(#binaryDefs)"
 				ref="rect"
 			></rect>
@@ -25,9 +28,10 @@
 				addRowNum = ref<number>(),
 				prevSpeed = ref<number>(),
 				main = ref<HTMLElement>(),
-				rect = ref<HTMLElement>();
+				rect = ref<HTMLElement>(),
+				def = ref<HTMLElement>();
 
-			return { stringLength, addRowNum, prevSpeed, main, rect };
+			return { stringLength, addRowNum, prevSpeed, main, rect, def };
 		},
 		data() {
 			const fontSize = 37;
@@ -35,8 +39,13 @@
 				getFontSize: fontSize,
 				getFontWidth: fontSize / 2,
 				getFontHeight: fontSize * (3 / 4),
-				angle: 17,
+				angle: 1,
 			};
+		},
+		mounted() {
+			this.stringLength = 10;
+			this.prevSpeed = this.initSpeed();
+			this.updateCombo();
 		},
 		methods: {
 			initSpeed() {
@@ -45,14 +54,14 @@
 			numRow() {
 				return (
 					(this.$el as HTMLElement).offsetHeight /
-						(this.getFontHeight / this.angle.r().c()) +
+						(this.getFontHeight / this.angle.ra().c()) +
 					1
 				);
 			},
 			textLength() {
 				return (
-					(this.$el as HTMLElement).offsetWidth *
-					(this.getFontHeight / this.angle.r().t() / this.getFontWidth)
+					(this.$el as HTMLElement).offsetWidth /
+					(this.getFontWidth * this.angle.ra().c())
 				);
 			},
 			generateBinary(previous = '') {
@@ -67,7 +76,7 @@
 						output = replaceAt(output, pos, `${(parseInt(previous[pos]) + 1) % 2}`);
 					} while (numChange > 0);
 				}
-				while (output.length * this.getFontWidth < this.textLength()) {
+				while (output.length < this.textLength()) {
 					output += `${getRandomInt(2)}`;
 				}
 				this.stringLength = output.length;
@@ -135,7 +144,7 @@
 							(getRandomInt(this.initSpeed() / 100) + 1) * (getRandomInt(2) ? -1 : 1),
 						text = this.generateSVGBlock(i, curSpeed);
 
-					this.main!.appendChild(text);
+					document.getElementById('binaryDefs')!.appendChild(text);
 					this.prevSpeed = curSpeed;
 				}
 			},
@@ -144,10 +153,23 @@
 
 				// textResize();
 				this.rect!.style.width = `${(
-					`text-${this.addRowNum! - 1}`.getElement() as SVGTextContentElement
+					`text-${this.addRowNum?.r()! - 1}`.getElement() as SVGTextContentElement
 				).getComputedTextLength()}`;
 				this.rect!.style.height = `${this.addRowNum! * this.getFontHeight!}`;
-				resizeSVG();
+				this.resizeSVG();
+			},
+			resizeSVG() {
+				const box = (this.main as unknown as SVGGraphicsElement).getBBox();
+				this.main!.setAttribute('width', `${box.x + box.width + box.x}`);
+				this.main!.setAttribute('height', `${box.y + box.height + box.y}`);
+			},
+			textResize() {
+				$('.textBlock').css('font-size', this.getFontSize + 'px');
+				$('.rectBlock').css('height', this.getFontSize + 'px');
+				$('.rectBlock').css(
+					'width',
+					`text-${0}`.getElement().getComputedTextLength() + 'px',
+				);
 			},
 		},
 	};

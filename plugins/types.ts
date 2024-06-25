@@ -18,7 +18,8 @@ declare global {
 		a(): number; // abs()
 		c(): number; // cos()
 		t(): number; // tan()
-		r(): number; // convert to radiant
+		ra(): number; // convert to radiant
+		sq(): number; // x^2
 	}
 	type Color = [number, number, number];
 }
@@ -59,6 +60,9 @@ Number.prototype.c = function () {
 Number.prototype.t = function () {
 	return Math.tan(Number(this));
 };
-Number.prototype.r = function () {
+Number.prototype.ra = function () {
 	return (Number(this) / 180) * Math.PI;
+};
+Number.prototype.sq = function () {
+	return Number(this) * Number(this);
 };
