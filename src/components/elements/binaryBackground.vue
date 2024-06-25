@@ -1,3 +1,13 @@
+<style scoped>
+	.textBlock {
+		font-size: v-bind('getFontSize');
+	}
+	.rectBlock {
+		height: v-bind('getFontSize');
+		width: 100px;
+	}
+</style>
+
 <template>
 	<div
 		class="full absolute flex flex-col justify-center items-center whitespace-nowrap overflow-hidden"
@@ -7,7 +17,9 @@
 			ref="main"
 		>
 			<defs>
-				<mask id="binaryDefs"></mask>
+				<mask id="binaryDefs">
+					
+				</mask>
 			</defs>
 			<rect
 				class="fill-[#370037] dark:fill-white full"
@@ -36,7 +48,7 @@
 		data() {
 			const fontSize = 37;
 			return {
-				getFontSize: fontSize,
+				getFontSize: `${fontSize}px`,
 				getFontWidth: fontSize / 2,
 				getFontHeight: fontSize * (3 / 4),
 				angle: 1,
