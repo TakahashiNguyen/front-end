@@ -17,15 +17,15 @@
 		<label class="ds-swap ds-swap-rotate scale-75">
 			<input
 				type="checkbox"
+				:checked="variables.isDarking !== isSystemDark"
 				class="ds-theme-controller"
-				value="synthwave"
-				@click="toggleDarkMode"
+				@change="toggleDarkMode"
 			/>
 			<RiMoonLine
 				class="w-10 h-10"
 				:class="{
-					'ds-swap-off': isSystemDark,
 					'ds-swap-on': !isSystemDark,
+					'ds-swap-off': isSystemDark,
 				}"
 			/>
 			<RiSunLine
@@ -45,18 +45,21 @@
 	import { ref } from 'vue';
 	import { RiSunLine, RiMoonLine } from 'vue-remix-icons';
 	import { availableLanguages } from '../../languages';
+	import { variablesStore } from '@st/variables';
 
 	export default {
 		setup() {
-			const isDarkMode = ref(
+			const isSystemDark = ref(
 					window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
 				),
-				isSystemDark = ref(
-					window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
-				),
-				tolgee = useTolgee(['language']);
+				tolgee = useTolgee(['language']),
+				variables = variablesStore();
 
-			return { tolgee, isDarkMode, isSystemDark, availableLanguages };
+			return { tolgee, isSystemDark, availableLanguages, variables };
+		},
+		mounted() {
+			this.variables.isDarking =
+				window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 		},
 		components: { RiSunLine, RiMoonLine, T },
 		methods: {
@@ -67,14 +70,15 @@
 				lang = lang.substring(lang.length - 2).toUpperCase();
 				return ' ' + emojiFlags.countryCode(lang)?.emoji;
 			},
-			toggleDarkMode() {
-				this.isDarkMode = !this.isDarkMode;
+			toggleDarkMode(e: Event) {
+				this.variables.isDarking =
+					(e.target as HTMLInputElement).checked !== this.isSystemDark;
 				document
 					.querySelector('html')!
-					.setAttribute('class', this.isDarkMode ? 'dark' : 'light');
+					.setAttribute('class', this.variables.isDarking ? 'dark' : 'light');
 				document
 					.querySelector('html')!
-					.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
+					.setAttribute('data-theme', this.variables.isDarking ? 'dark' : 'light');
 			},
 		},
 	};

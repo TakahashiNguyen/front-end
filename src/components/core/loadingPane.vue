@@ -63,7 +63,7 @@
 		},
 		methods: {
 			fadePane() {
-				fade(this.loadingPage!, 3, 1, 0, 144, () => {
+				fade(this.loadingPage!, 2, 1, 0, 144, () => {
 					this.loadingPage!.classList.add('hidden');
 				});
 			},
